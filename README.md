@@ -3,7 +3,7 @@
 <br> visual video (updated, May 26, 2020)
 <br>https://youtu.be/NCtl9ws50Co
 
-may 26: added visuals, Events page, Calendar Screen, trivia box
+may 26: added visuals, Events page, Calendar Screen (edit:vertical), trivia box
   
 Home Screen w/ Events Page:<br>
 <img src = "assets/Visuals/Feed.jpeg" width = "350"> <img src = "assets/Visuals/EventPage.jpeg" width = "350">
@@ -17,8 +17,8 @@ Home Screen w/ Events Page:<br>
 Event Page Scrolling:
 <br>https://youtu.be/jcV7yBG85NM
 
-<br>Calendar Screen:
-<br><img src = "assets/Visuals/Calendar.jpeg" width = "350">
+<br>Calendar Screen (vertical):
+<br><img src = "assets/Visuals/CalendarVertical.PNG" width = "350">
   
 <br>Calendar screen with Vertical scroll, Firebase events, and Events page interaction
 <br>https://youtu.be/7NdCsXegmlo

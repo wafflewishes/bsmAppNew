@@ -13,4 +13,7 @@ Event Page Scrolling:
 
 <br>Calendar Screen:
 <br><img src = "assets/Visuals/Calendar.jpeg" width = "350">
+  
+<br>Calendar screen with Vertical scroll, Firebase events, and Events page interaction
+<br>https://youtu.be/7NdCsXegmlo
 

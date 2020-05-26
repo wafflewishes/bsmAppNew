@@ -6,8 +6,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import FeedContent from "../components/FeedContent";
 import SideSwiper from "../components/SideSwiper";
 
-import EventPage from './EventPage';
+import Quiz from './Quiz';
 
+import EventPage from './EventPage';
 const styles = StyleSheet.create({
 
     header2: {
@@ -88,6 +89,7 @@ export default function FeedStackScreen() {
     <FeedStack.Navigator headerMode = "none" initialRouteName = "Home">
       <FeedStack.Screen name="Home" component={LiveFeed}/>
       <FeedStack.Screen name="EventPage" component={EventPage}/>
+      <FeedStack.Screen name="Quiz" component={Quiz} />
     </FeedStack.Navigator>
   );
 }

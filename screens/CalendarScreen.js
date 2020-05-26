@@ -9,9 +9,10 @@ import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 import {EventList} from '../components/firebaseAuth';
 
+import Layout from '../constants/Layout';
 
-const WIDTH = Math.round(Dimensions.get('window').width);
-const HEIGHT = Math.round(Dimensions.get('window').height);
+
+
 
 const CalendarStack = createStackNavigator();
 
@@ -57,7 +58,7 @@ render(){
         <CalendarList
             markedDates = {obj}
             onDayPress = {(day) =>  {  this.loadDate(day)  }}
-            calendarWidth={WIDTH}
+            calendarWidth={Layout.window.width}
             current={TODAY}
           />
       </View>

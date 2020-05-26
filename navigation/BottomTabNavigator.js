@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 
 import TabBarIcon from '../components/TabBarIcon';
-import LinksScreen from '../screens/CalendarScreen';
+import CalendarStackScreen from '../screens/CalendarScreen';
 import FeedStackScreen from '../screens/LiveFeed';
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -49,7 +49,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Calendar"
-        component={LinksScreen}
+        component={CalendarStackScreen}
         options={{
 
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-calendar" />,

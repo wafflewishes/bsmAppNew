@@ -1,18 +1,36 @@
 import React, { Component } from "react";
-import { StyleSheet, View, ScrollView, FlatList, Text } from "react-native";
+import { StyleSheet, View, ScrollView, FlatList, Text, SafeAreaView } from "react-native";
 import {EventList} from "./firebaseAuth";
+import moment from 'moment';
 
 import HEvent from "./HEvent";
+import { render } from "react-dom";
+
+const TODAY = moment().format();
+var dates = [];
+
 
 
 export default class SideSwiper extends React.Component {
+  constructor(props)
+  {
+    super(props);
+    this.state = { loaded: false };
+    EventList.forEach(element => 
+      {if(Date.parse(element.startDate) > Date.parse(TODAY)){
+      dates.push(element)}},
+      );
+      console.log("loading state");
+      this.state = { loaded: true, events: dates }
+      
+  }
+
     render(){
 
         return(
         <View style={styles.upcomingSideSwipe}>
             <Text style = {styles.todayText}>Upcoming Events</Text>
-            <View>
-                <ScrollView
+            <SafeAreaView
                     horizontal={true}
                     contentContainerStyle={
                         styles.upcomingSideSwipe_contentContainerStyle
@@ -20,8 +38,8 @@ export default class SideSwiper extends React.Component {
                     >
                     <View style={styles.uEventList}>
                         <FlatList
-                            data = {EventList}
-                            extraData = {this.state}
+                            data = {dates}
+                            extraData = {this.state.dates}
                             horizontal = {true}
                             renderItem={({ item }) => (
                                 <HEvent
@@ -32,8 +50,7 @@ export default class SideSwiper extends React.Component {
                     
                             />
                     </View>
-                </ScrollView>
-            </View>
+            </SafeAreaView>
           </View>
         );
     }
@@ -78,19 +95,17 @@ const styles = StyleSheet.create({
         width: "100%",
         height: 388,
         flexDirection: "row",
-        marginLeft: 11,
-        marginRight: 11
       },
       uEvent1: {
         width: 298,
         height: 383,
-        marginRight: 11
+        marginHorizontal: 5.5
       },
       todayText: {
         color: "rgba(255,0,0,3)",
         alignSelf: "stretch",
         fontSize: 20,
-        fontFamily: "kadwa-700",
+        fontFamily: "titleFont",
         textAlign: "center"
       }
   });

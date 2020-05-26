@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   hanumanJayanti: {
     color: "rgba(255,255,255,1)",
-    fontFamily: "kadwa-regular",
+    fontFamily: "titleFont-regular",
     marginTop: 13,
     marginLeft: 93
   },

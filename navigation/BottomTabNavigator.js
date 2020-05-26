@@ -18,7 +18,7 @@ export default function BottomTabNavigator({ navigation, route }) {
     showLabel : true,
     activeTintColor: "white",
     labelStyle: {
-      fontFamily: "kadwa-700",
+      fontFamily: "titleFont",
       
     },
     style:{

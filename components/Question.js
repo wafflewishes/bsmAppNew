@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     height: 38,
     color: "rgba(0,95,168,1)",
     fontSize: 18,
-    fontFamily: "kadwa-regular",
+    fontFamily: "titleFont-regular",
     textAlign: "center"
   },
   choices: {
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   trident33: {
     color: "rgba(255,255,255,1)",
     fontSize: 20,
-    fontFamily: "kadwa-regular",
+    fontFamily: "titleFont-regular",
     marginTop: 38,
     marginLeft: 11
   },
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     height: 20,
     color: "rgba(255,255,255,1)",
     fontSize: 20,
-    fontFamily: "kadwa-regular",
+    fontFamily: "titleFont-regular",
     textAlign: "center",
     marginTop: 38
   },
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     height: 20,
     color: "rgba(255,255,255,1)",
     fontSize: 20,
-    fontFamily: "kadwa-regular",
+    fontFamily: "titleFont-regular",
     textAlign: "center",
     marginTop: 38
   },
@@ -177,14 +177,14 @@ const styles = StyleSheet.create({
     height: 20,
     color: "rgba(255,255,255,1)",
     fontSize: 20,
-    fontFamily: "kadwa-regular",
+    fontFamily: "titleFont-regular",
     textAlign: "center",
     marginTop: 38
   },
   trivia: {
     color: "rgba(0,0,0,1)",
     fontSize: 8,
-    fontFamily: "kadwa-regular",
+    fontFamily: "titleFont-regular",
     textDecorationLine: "underline",
     marginLeft: 312
   }

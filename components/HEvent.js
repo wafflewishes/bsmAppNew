@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   upcomingDate: {
     color: "rgba(255,255,255,1)",
     fontSize: 12,
-    fontFamily: "kadwa-regular",
+    fontFamily: "titleFont-regular",
     textAlign: "center",
   },
   upcomingContent: {
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     marginRight: 12,
     marginLeft: 12,
     fontSize: 18,
-    fontFamily: "kadwa-regular",
+    fontFamily: "titleFont-regular",
     lineHeight: 18,
     paddingTop: 10
   },
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     fontSize: 14,
     paddingBottom: 5,
-    fontFamily: "georgia-regular"
+    fontFamily: "textFont-regular"
   },
   upcomingDescription: {
     width: 280,
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     marginRight: 12,
     marginLeft: 12,
     fontSize: 10,
-    fontFamily: "kadwa-regular",
+    fontFamily: "titleFont-regular",
     lineHeight: 16
   }
 });

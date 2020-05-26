@@ -47,12 +47,12 @@ const styles = StyleSheet.create({
         fontSize: 23,
         lineHeight: 35,
         marginHorizontal: 8,
-        fontFamily: "kadwa-regular",
+        fontFamily: "titleFont",
     },
     description: {
         fontSize: 15,
         marginHorizontal: 8,
-        fontFamily: "kadwa-regular",
+        fontFamily: "titleFont-regular",
     },
     descriptionBox: {
         marginTop: 13,
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         fontSize: 23,
         marginHorizontal: 8,
 
-        fontFamily: "georgia-regular",
+        fontFamily: "textFont-regular",
     }
   });
   

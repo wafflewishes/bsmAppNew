@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import {getEvent, EventList, getTrivia} from './components/firebaseAuth';
-import { AppLoading } from 'expo';
+import { AppLoading,SplashScreen } from 'expo';
 
 
 import useCachedResources from './hooks/useCachedResources';
@@ -16,22 +16,38 @@ import { useFonts } from '@use-expo/font';
 const Stack = createStackNavigator();
 
 export default function App(props) {
-  const isLoadingComplete = useCachedResources();
+  const [isLoadingComplete, setLoadingComplete] = React.useState(false);
+
 
   let [fontsLoaded] = useFonts({
-    'georgia-regular': require('./assets/fonts/georgia-regular.ttf'),
-    'kadwa-700': require('./assets/fonts/kadwa-700.ttf'),
-    'kadwa-regular': require('./assets/fonts/kadwa-regular.ttf'),
-    'roboto-regular': require('./assets/fonts/roboto-regular.ttf'),
+    'textFont-regular': require('./assets/fonts/georgia-regular.ttf'),
+    "titleFont": require('./assets/fonts/kadwa-700.ttf'),
+    'titleFont-regular': require('./assets/fonts/kadwa-regular.ttf'),
   });
 
-  getEvent();
+  React.useEffect(() => {
+    async function loadResourcesAndDataAsync() {
+      try {
+        SplashScreen.preventAutoHide();
+          await getEvent();
+
+      } catch (e) {
+        // We might want to provide this error information to an error reporting service
+        console.warn(e);
+      } finally {
+        setLoadingComplete(true);
+        SplashScreen.hide();
+      }
+    }
+    loadResourcesAndDataAsync();
+  }, []);
+
 
   if (!fontsLoaded) {
     return <AppLoading />;
   } 
   else {
-    if (!isLoadingComplete) {
+    if (!isLoadingComplete && !props.skipLoadingScreen) {
       return null;
     } else {
       return (

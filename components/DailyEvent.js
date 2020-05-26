@@ -66,13 +66,13 @@ const styles = StyleSheet.create({
     color: "rgba(255,255,255,1)",
     alignSelf: "center",
     fontSize: 14,
-    fontFamily: "kadwa-regular"
+    fontFamily: "titleFont"
   },
   loremIpsum: {
     color: "rgba(255,255,255,1)",
     alignSelf: "center",
     fontSize: 14,
-    fontFamily: "kadwa-regular"
+    fontFamily: "titleFont"
   }
 });
 

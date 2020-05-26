@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   feed: {
     color: "rgba(255,255,255,1)",
     fontSize: 14,
-    fontFamily: "kadwa-regular",
+    fontFamily: "titleFont-regular",
     marginTop: 23,
     marginLeft: 78
   },
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   calendar: {
     color: "rgba(255,255,255,1)",
     fontSize: 14,
-    fontFamily: "kadwa-regular",
+    fontFamily: "titleFont-regular",
     marginTop: 23,
     marginLeft: 63
   }

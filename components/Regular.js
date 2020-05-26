@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     color: "rgba(0,95,168,1)",
     opacity: 0.9,
     fontSize: 16,
-    fontFamily: "georgia-regular"
+    fontFamily: "textFont-regular"
   },
   time: {
     width: 97,
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     color: "rgba(0,0,0,1)",
     opacity: 0.9,
     fontSize: 14,
-    fontFamily: "georgia-regular"
+    fontFamily: "textFont-regular"
   },
   divider: {
     width: 25,
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     marginBottom: 6,
     marginLeft: 8,
     fontSize: 9,
-    fontFamily: "georgia-regular"
+    fontFamily: "textFont-regular"
   },
   boxStack: {
     width: 346,

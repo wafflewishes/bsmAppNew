@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   hanumanJayanti: {
     color: "rgba(255,255,255,1)",
     fontSize: 18,
-    fontFamily: "kadwa-regular",
+    fontFamily: "titleFont-regular",
     marginTop: 10,
     marginLeft: 96
   },
@@ -88,12 +88,12 @@ const styles = StyleSheet.create({
   march172020: {
     color: "rgba(255,255,255,1)",
     fontSize: 14,
-    fontFamily: "kadwa-regular"
+    fontFamily: "titleFont-regular"
   },
   loremIpsum2: {
     color: "rgba(255,255,255,1)",
     fontSize: 14,
-    fontFamily: "kadwa-regular"
+    fontFamily: "titleFont-regular"
   },
   loremIpsum3: {
     top: 283,
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     color: "rgba(255,255,255,1)",
     position: "absolute",
     fontSize: 12,
-    fontFamily: "kadwa-regular",
+    fontFamily: "titleFont-regular",
     textAlign: "center"
   },
   rect1Stack: {

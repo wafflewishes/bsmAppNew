@@ -21,47 +21,54 @@ console.log(TODAY);
 var dates = [];
 
 let mark = {};
+var obj = [];
 
+class LinksScreen extends React.Component {
 
-dates.forEach(day => {
-  mark[day] = {selected: true, marked: true};
-});
+  constructor(){
+    super();
+    this.state = {loaded: false}
+    dates.forEach(day => {
+      mark[day] = {selected: true, marked: true};
+    });
+    
+    EventList.forEach(element => 
+    {if(Date.parse(element.startDate) > Date.parse(TODAY)){
+    dates.push(JSON.stringify(element.startDate).substring(1,11))}},
+    );
+    
+    obj = dates.reduce((c, v) => Object.assign(c, {[v]: {selected: true,marked: true,disabled: false}}), {});
+    this.state = {loaded: true}
 
-EventList.forEach(element => 
-{if(Date.parse(element.startDate) > Date.parse(TODAY)){
-dates.push(JSON.stringify(element.startDate).substring(1,11))}},
-);
+  }
 
-var obj = dates.reduce((c, v) => Object.assign(c, {[v]: {selected: true,marked: true,disabled: false}}), {});
+ loadDate = day =>{
+  const navigation = this.props.navigation;  
 
-function LinksScreen() {
-  const navigation = useNavigation();  
+    var output = filterItems(EventList, day.dateString);
+    console.log(day);
+    if(output.length > 0)navigation.navigate("EventPage", {event: output[0]});    
+  }
+
+render(){
 
     return (
       <View>
         <CalendarList
             markedDates = {obj}
-            onDayPress = {(day) =>  {  
-              var output = filterItems(EventList, day.dateString);
-              console.log(output);
-              navigation.navigate("EventPage", {event: output[0]});
-            }}
+            onDayPress = {(day) =>  {  this.loadDate(day)  }}
             calendarWidth={WIDTH}
-          current={TODAY}
+            current={TODAY}
           />
       </View>
     );
-  
+  }
 }
 
-function loadDate(day){
-
-
-}
 
 function filterItems(arr, dayString) {
   return arr.filter(function(el) {
-      return el.startDate == dayString;
+      return el.startDate == dayString && Date.parse(el.startDate) > Date.parse(TODAY);
   })
 }
 

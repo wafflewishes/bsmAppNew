@@ -83,7 +83,7 @@ export async function getEvent(){
         key = key + 1;
     });
     console.log(EventList);
-    return true;
+    return EventList;
 }
 
 export async function getTrivia(){

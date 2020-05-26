@@ -46,13 +46,13 @@ const styles = StyleSheet.create({
     height: 20,
     color: "rgba(0,95,168,1)",
     fontSize: 18,
-    fontFamily: "kadwa-regular",
+    fontFamily: "titleFont",
     textAlign: "center"
   },
   date: {
     color: "rgba(43,43,43,1)",
     fontSize: 12,
-    fontFamily: "kadwa-regular"
+    fontFamily: "titleFont-regular"
   },
   picture: {
     width: 345,
@@ -65,13 +65,13 @@ const styles = StyleSheet.create({
     margin: 0,
     paddingTop: 3,
     fontSize: 10,
-    fontFamily: "kadwa-regular",
+    fontFamily: "titleFont-regular",
     textAlign: "center"
   },
   label: {
     color: "rgba(12,12,12,1)",
     fontSize: 8,
-    fontFamily: "kadwa-regular",
+    fontFamily: "titleFont-regular",
     textDecorationLine: "underline",
     marginLeft: 293
   }

@@ -51,14 +51,14 @@ const styles = StyleSheet.create({
     color: "rgba(255,255,255,1)",
     alignSelf: "stretch",
     fontSize: 20,
-    fontFamily: "kadwa-700",
+    fontFamily: "titleFont",
     textAlign: "center"
   },
   todayDate: {
     color: "rgba(255,255,255,1)",
     alignSelf: "center",
     fontSize: 30,
-    fontFamily: "kadwa-700",
+    fontFamily: "titleFont",
     textAlign: "center"
   },
   todayMiddleBar: {

@@ -48,7 +48,7 @@ export default function App(props) {
   } 
   else {
     if (!isLoadingComplete && !props.skipLoadingScreen) {
-      return null;
+      return <AppLoading />;
     } else {
       return (
         <View style={styles.container}>

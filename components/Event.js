@@ -1,24 +1,27 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
+import moment from 'moment';
+
+var today = moment().format();
 
 function Event(props) {
   return (
     <View style={[styles.container, props.style]}>
       <View style={styles.content}>
         <View style={styles.header}>
-          <Text style={styles.title}>Maha Shivratri - 2020 Highlights</Text>
-          <Text style={styles.date}>Feb 06, 2020</Text>
+          <Text style={styles.title}>{props.event.title}</Text>
+          <Text style={styles.date}>{props.event.commonStartDate}</Text>
         </View>
         <Image
-          source={require("../assets/images/Shivratri_2018_10.jpg")}
+          source={props.event.media}
           resizeMode="cover"
           style={styles.picture}
         ></Image>
         <Text style={styles.description}>
-          Revist highlights from this year&#39;s Maha Shivraatri celebrations
+          {props.event.description}
         </Text>
       </View>
-      <Text style={styles.label}>Past Event</Text>
+      <Text style={styles.label}>{props.event.type}</Text>
     </View>
   );
 }
@@ -31,7 +34,7 @@ const styles = StyleSheet.create({
     width: 345,
     height: 263,
     alignItems: "center",
-    flexWrap: "nowrap",
+    flexGrow:1,
     justifyContent: "space-around",
     marginTop: 10
   },
@@ -43,7 +46,7 @@ const styles = StyleSheet.create({
   },
   title: {
     width: 345,
-    height: 20,
+    height: 30,
     color: "rgba(0,95,168,1)",
     fontSize: 18,
     fontFamily: "titleFont",
@@ -59,11 +62,13 @@ const styles = StyleSheet.create({
     height: 175
   },
   description: {
-    width: 345,
+    width: 340,
     height: 32,
     color: "rgba(12,12,12,1)",
     margin: 0,
     paddingTop: 3,
+    flex: 1,
+    flexShrink:1,
     fontSize: 10,
     fontFamily: "titleFont-regular",
     textAlign: "center"

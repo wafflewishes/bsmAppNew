@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 import { View, Image } from 'react-native';
 import { State } from 'react-native-gesture-handler';
+import moment from 'moment';
 
 require('firebase/firestore');
 
@@ -38,13 +39,12 @@ export async function getEvent(){
         event.endTime = doc.get('endTime');  
         event.startTime = doc.get('startTime');  
         event.expandable = new Boolean (doc.get('expandable'));  
-        event.media = "https://static.wixstatic.com/media/28e3bd_56257553de024cb7871d7a3d56da23e0~mv2.png";  
-        event.type = doc.get('type');  
-
+        event.media = {uri: "https://static.wixstatic.com/media/28e3bd_56257553de024cb7871d7a3d56da23e0~mv2.png"};  
+        
         var startDate = doc.get('startDate');
         if (startDate == "") {
             event.startDate = "1999-01-01";
-            event.commonStartDate = "January 1, 1999";
+            event.commonStartDate = "January 1";
         }
         else {
             var month = startDate.toDate().getMonth()+1;
@@ -75,10 +75,13 @@ export async function getEvent(){
         
         var clear = true;
         for(var i = 0; i < EventList.length; i ++){
-            if (EventList[i].title == event.title && EventList[i].startDate == event.startDate){
+            if ((EventList[i].title == event.title && EventList[i].startDate == event.startDate) ||(event.startDate == "1999-01-01")){
                 clear = false;
             }
         }
+        if(event.startDate > moment().format()) event.type = doc.get('type');  
+        else event.type = "Past Event";
+
         if(clear)EventList.push(event);
         key = key + 1;
     });

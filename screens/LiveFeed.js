@@ -1,15 +1,56 @@
 import React, { Component } from "react";
 import { StyleSheet, View, ScrollView, FlatList, Text } from "react-native";
 
+import Event from "../components/Event";
+import Quote from "../components/Quote";
+import QuizRowItem from '../components/QuizRowItem';
+
 import TodayContent from "../components/TodayContent";
 import { createStackNavigator } from '@react-navigation/stack';
 import FeedContent from "../components/FeedContent";
 import SideSwiper from "../components/SideSwiper";
 
+import {EventList} from '../components/firebaseAuth';
+
+import vishnuLakshmiQuestions from "../assets/data/vishnuLakshmi";
+import ramayanQuestions from "../assets/data/ramayan";
+import hanumanQuestions from "../assets/data/hanuman";
+import shivaQuestions from "../assets/data/shiva";
+import generalQuestions from "../assets/data/general";
+
 import Quiz from './Quiz';
 
 import EventPage from './EventPage';
+import HEvent from "../components/HEvent";
+
+var counter = 0;
+const MAXSTRINGLENGTH = 3;
+var feed = [];
+
+
+
+
+
+
 const styles = StyleSheet.create({
+
+  container: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 12
+  },
+  content: {
+    width: 345,
+    height: 290,
+    shadowOffset: {
+      height: 5,
+      width: 5
+    },
+    shadowColor: "rgba(0,0,0,1)",
+    shadowOpacity: 0.16,
+    margin: 6
+  },
 
     header2: {
       width: 375,
@@ -63,8 +104,20 @@ const styles = StyleSheet.create({
   export class LiveFeed extends React.Component{
     constructor(props){
         super(props);
+        this.loadFeed = this.loadFeed.bind(this);
+        this.loadFeed();
     }
 
+    
+    loadFeed = () => {
+      if(counter + MAXSTRINGLENGTH <= EventList.length){
+        for (let index = 0; index < MAXSTRINGLENGTH; index++) {
+          feed.push({type: "Event", item: EventList[counter]})
+          counter++;
+        }
+        feed.push({type: "Trivia"})
+      }
+    } 
     render(){
         return(
             <View style={styles.feedContainer}>
@@ -74,7 +127,16 @@ const styles = StyleSheet.create({
         >
           <TodayContent/>
           <SideSwiper/>
-          <FeedContent/>
+          <FlatList
+              data={feed}
+              contentContainerStyle={styles.container}
+              renderItem={({item}) => {
+                if(item.type == "Event") return <Event style={styles.content} event={item.item}/>
+                else if(item.type == "Trivia") return <QuizRowItem/>
+              }}
+              onEndReached={this.loadFeed}
+          />
+
         </ScrollView>
       </View>
 

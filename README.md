@@ -3,6 +3,8 @@
 <br> visual video (updated, May 26, 2020)
 <br>https://youtu.be/NCtl9ws50Co
 
+
+may 29: added advanced scrolling feature, splash screen, improved firebase interactions, made event dynamic
 may 26: added visuals, Events page, Calendar Screen (edit:vertical), trivia box
   
 Home Screen w/ Events Page:<br>

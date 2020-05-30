@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, View, ScrollView, FlatList, Text, SafeAreaView } from "react-native";
 import {EventList} from "./firebaseAuth";
 import moment from 'moment';
-
+import Colors from '../constants/Colors';
 import HEvent from "./HEvent";
 import { render } from "react-dom";
 
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
       upcomingSideSwipe: {
         width: "100%",
         height: 470,
-        backgroundColor: "rgba(230, 230, 230,1)",
+        backgroundColor: "#ffffff",
         borderColor: "rgba(124,185,231,1)",
         borderWidth: 0,
         borderTopWidth: 6,
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 5.5
       },
       todayText: {
-        color: "rgba(255,0,0,3)",
+        color: Colors.titleColour,
         alignSelf: "stretch",
         fontSize: 20,
         fontFamily: "titleFont",

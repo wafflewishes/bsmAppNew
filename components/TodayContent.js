@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,1)"
   },
   today2: {
-    width: 345,
     height: 103,
     shadowOffset: {
       height: 5,
@@ -78,7 +77,6 @@ const styles = StyleSheet.create({
     shadowColor: "rgba(0,0,0,1)",
     shadowOpacity: 0.16,
     marginTop: 16,
-    marginLeft: 15
   },
   today1: {
     width: 345,

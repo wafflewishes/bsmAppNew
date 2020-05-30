@@ -54,8 +54,7 @@ const styles = StyleSheet.create({
     width: 345,
     height: 103,
     backgroundColor: "rgba(255,255,255,1)",
-    position: "absolute",
-    left: 0,
+    position: "relative",
     top: 0
   },
   picture: {
@@ -120,7 +119,7 @@ const styles = StyleSheet.create({
     fontFamily: "textFont-regular"
   },
   boxStack: {
-    width: 346,
+    width: "100%",
     height: 103
     
   }

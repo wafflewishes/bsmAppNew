@@ -3,9 +3,9 @@
 <br> visual video (updated, June 02, 2020)
 <br>https://youtu.be/KGy42OnouJA
 
-jun 2:  added splash screen, dynamic feed, patuaOne font, calendar designs 
-may 29: added advanced scrolling feature, splash screen, improved firebase interactions, made event dynamic
-may 26: added visuals, Events page, Calendar Screen (edit:vertical), trivia box
+<br>jun 2:  added splash screen, dynamic feed, patuaOne font, calendar designs 
+<br>may 29: added advanced scrolling feature, splash screen, improved firebase interactions, made event dynamic
+<br>may 26: added visuals, Events page, Calendar Screen (edit:vertical), trivia box
   
 Home Screen w/ Events Page:<br>
 <img src = "assets/Visuals/Feed.jpeg" width = "350"> <img src = "assets/Visuals/EventPage.jpeg" width = "350">

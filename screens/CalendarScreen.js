@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import {Calendar, CalendarList} from "react-native-calendars";
 import { createStackNavigator } from '@react-navigation/stack';
 import EventPage from './EventPage';
@@ -10,6 +10,7 @@ import moment from 'moment';
 import {EventList} from '../components/firebaseAuth';
 
 import Layout from '../constants/Layout';
+import { FlatList } from 'react-native-gesture-handler';
 
 
 
@@ -38,7 +39,7 @@ class LinksScreen extends React.Component {
     dates.push(JSON.stringify(element.startDate).substring(1,11))}},
     );
     
-    obj = dates.reduce((c, v) => Object.assign(c, {[v]: {selected: true,marked: true,disabled: false}}), {});
+    obj = dates.reduce((c, v) => Object.assign(c, {[v]: {selected: true,marked: true,disabled: false, selectedColor:'#e0a227'}}), {});
     this.state = {loaded: true}
 
   }
@@ -60,7 +61,39 @@ render(){
             onDayPress = {(day) =>  {  this.loadDate(day)  }}
             calendarWidth={Layout.window.width}
             current={TODAY}
-          />
+            theme={{
+              backgroundColor: '#ffffff',
+              calendarBackground: '#ffffff',
+              textSectionTitleColor: 'black',
+              selectedDayTextColor: 'black',
+              selectedDotColor: '#e0a227',
+              todayTextColor: 'black',
+              todayBackgroundColor: '#90c5e6',
+              dayTextColor: 'black',
+              textDisabledColor: '#d9e1e8',
+              monthTextColor: '#90c5e6',
+              selectedDayBackgroundColor: '#e0a227',
+              selectedDayTextColor: 'black',
+              /*textDayFontFamily: 'monospace',
+              textMonthFontFamily: 'monospace',
+              textDayHeaderFontFamily: 'monospace',*/
+              textDayFontWeight: 'bold',
+              textMonthFontWeight: 'bold',
+              textDayHeaderFontWeight: '300',
+              textDayFontSize: 16,
+              textMonthFontSize: 38,
+              textDayHeaderFontSize: 16,
+              /*week: {
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                backgroundColor: 'gray',
+                margin: 1,
+                borderBottomWidth: 1,
+                borderBottomColor: 'gray',
+              },*/
+              
+              }}/>
+              
       </View>
     );
   }
@@ -83,4 +116,5 @@ export default function CalendarStackScreen(){
 }
 
 const styles = StyleSheet.create({
+
 });

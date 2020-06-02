@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, ScrollView, FlatList, Text } from "react-native";
+import { StyleSheet, View, ScrollView, SafeAreaView, FlatList, Text } from "react-native";
 
 import Event from "../components/Event";
 import Quote from "../components/Quote";
@@ -30,6 +30,7 @@ var feed = [];
 
 
 
+var key = 0;
 
 
 const styles = StyleSheet.create({
@@ -108,37 +109,40 @@ const styles = StyleSheet.create({
         this.loadFeed();
     }
 
-    
     loadFeed = () => {
       if(counter + MAXSTRINGLENGTH <= EventList.length){
         for (let index = 0; index < MAXSTRINGLENGTH; index++) {
-          feed.push({type: "Event", item: EventList[counter]})
+
+          feed.push({type: "Event", item: EventList[counter], key:JSON.stringify(key)})
           counter++;
+          key++;
         }
-        feed.push({type: "Trivia"})
+        feed.push({type: "Trivia", key: JSON.stringify(key)});
+        key++;
       }
     } 
     render(){
         return(
-            <View style={styles.feedContainer}>
-        <ScrollView
-          horizontal={false}
-          contentContainerStyle={styles.feedContainer_contentContainerStyle}
-        >
-          <TodayContent/>
-          <SideSwiper/>
-          <FlatList
-              data={feed}
-              contentContainerStyle={styles.container}
-              renderItem={({item}) => {
-                if(item.type == "Event") return <Event style={styles.content} event={item.item}/>
-                else if(item.type == "Trivia") return <QuizRowItem/>
-              }}
-              onEndReached={this.loadFeed}
-          />
+        <View style={styles.feedContainer}>
+          <ScrollView
+            horizontal={false}
+            contentContainerStyle={styles.feedContainer_contentContainerStyle}
+            showsVerticalScrollIndicator={false}
+          >
+            <TodayContent/>
+            <SideSwiper/>
+            <FlatList
+                data={feed}
+                contentContainerStyle={styles.container}
+                renderItem={({item}) => {
+                  if(item.type == "Event") return <Event style={styles.content} event={item.item}/>
+                  else if(item.type == "Trivia") return <QuizRowItem/>
+                }}
+                onEndReached={this.loadFeed}
+            />
 
-        </ScrollView>
-      </View>
+          </ScrollView>
+        </View>
 
         );
     }

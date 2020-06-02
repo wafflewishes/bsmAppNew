@@ -4,12 +4,23 @@ import Regular from "./Regular";
 import moment from 'moment';
 import {EventList} from './firebaseAuth';
 
+const TODAY = moment().format();
+
 
 var day = moment().format('MMMM Do[,] YYYY');
-var eventData = EventList;
+var eventData = [];
 var count;
 
  class TodayContent extends React.Component {
+  constructor(props)
+  {
+    super(props);
+    EventList.forEach(element => 
+      {if(Date.parse(element.startDate) > Date.parse(TODAY)){
+      eventData.push(element)}},
+      );
+  }
+
   render(){
       return (
           <View style={styles.todayContainer}>
@@ -19,7 +30,9 @@ var count;
               <View style={styles.todayMiddleBar}></View>
             </View>
             <FlatList
-            data = {eventData}
+            data = {eventData.slice(0,5)}
+            keyExtractor = {(item, index) => item.key}
+            showsVerticalScrollIndicator={false}
             renderItem={({ item }) => (
               <Regular
                 event = {item}
@@ -39,6 +52,10 @@ const styles = StyleSheet.create({
     height: 358,
     justifyContent: "center",
     backgroundColor: "rgba(124,185,231,1)"
+  },
+  listStyle:{
+    flex:1,
+    justifyContent: 'center'
   },
   todayWords: {
     width: "100%",
@@ -69,6 +86,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,1)"
   },
   today2: {
+    width: 345,
     height: 103,
     shadowOffset: {
       height: 5,
@@ -77,6 +95,8 @@ const styles = StyleSheet.create({
     shadowColor: "rgba(0,0,0,1)",
     shadowOpacity: 0.16,
     marginTop: 16,
+    marginLeft: 15,
+    
   },
   today1: {
     width: 345,

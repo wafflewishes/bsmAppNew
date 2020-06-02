@@ -51,11 +51,9 @@ const styles = StyleSheet.create({
     
   },
   box: {
-    width: 345,
     height: 103,
     backgroundColor: "rgba(255,255,255,1)",
-    position: "relative",
-    top: 0
+
   },
   picture: {
     width: 151,

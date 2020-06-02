@@ -39,6 +39,8 @@ export default class SideSwiper extends React.Component {
                     <View style={styles.uEventList}>
                         <FlatList
                             data = {dates}
+                            keyExtractor = {(item, index) => item.key}
+                            showsHorizontalScrollIndicator={false}
                             extraData = {this.state.dates}
                             horizontal = {true}
                             renderItem={({ item }) => (

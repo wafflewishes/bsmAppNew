@@ -21,7 +21,7 @@ export default function App(props) {
 
   let [fontsLoaded] = useFonts({
     'textFont-regular': require('./assets/fonts/georgia-regular.ttf'),
-    "titleFont": require('./assets/fonts/kadwa-700.ttf'),
+    "titleFont": require('./assets/fonts/PatuaOne-Regular.ttf'),
     'titleFont-regular': require('./assets/fonts/kadwa-regular.ttf'),
   });
 

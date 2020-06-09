@@ -13,7 +13,7 @@
     },
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/appLogo.png",
     "scheme": "myapp",
     "splash": {
       "image": "./assets/images/Splash.png",

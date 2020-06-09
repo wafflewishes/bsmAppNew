@@ -1,7 +1,7 @@
 # bsmAppNew
 
 <br> visual video (updated, June 09, 2020)
-<br>https://youtu.be/rFsyu17SKRQ
+<br>https://youtu.be/z8TqFrTUqBc
 
 <br>jun 9:  added quote box, Calendar legend, modified header font, colours. increased size of Event box & fonts, cleaned up firebase backend.
 <br>jun 2:  added splash screen, dynamic feed, patuaOne font, calendar designs 

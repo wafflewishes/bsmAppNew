@@ -9,7 +9,7 @@
 <br>may 26: added visuals, Events page, Calendar Screen (edit:vertical), trivia box
   
 Home Screen w/ Events Page:<br>
-<img src = "assets/Visuals/Feed.jpeg" width = "350"> <img src = "assets/Visuals/EventPage.jpeg" width = "350">
+<img src = "assets/Visuals/HomeNew.PNG" width = "350"> <img src = "assets/Visuals/EventPageNew.PNG" width = "350">
 
 Upcoming Event box (w/ description and without):<br>
 <img src = "assets/Visuals/eventLarge.PNG" width = "350"> 

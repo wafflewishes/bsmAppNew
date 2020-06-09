@@ -1,84 +1,126 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import moment from 'moment';
+import Colors from '../constants/Colors';
+import Layout from '../constants/Layout';
+import { useNavigation } from '@react-navigation/native';
 
 var today = moment().format();
 
 function Event(props) {
-  return (
-    <View style={[styles.container, props.style]}>
-      <View style={styles.content}>
-        <View style={styles.header}>
-          <Text style={styles.title}>{props.event.title}</Text>
-          <Text style={styles.date}>{props.event.commonStartDate}</Text>
+  const navigation = useNavigation();  
+
+  if(props.event.description.length <= 0){
+    return (
+      <View style={{
+        shadowOffset: {
+          height: 5,
+          width: 5
+        },
+        shadowColor: "rgba(0,0,0,1)",
+        shadowOpacity: 0.16,
+    
+        flex: 3,
+        margin: 6,
+        alignItems: 'center',
+      }}>
+      <TouchableOpacity
+        onPress = {() =>
+          navigation.navigate("EventPage", props)
+        }
+  
+      >
+  
+        <View style={{
+          width: Layout.content.width,
+          height: Layout.content.height,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'stretch',
+        }}>
+          <View style={{ flex: 6, backgroundColor: 'white', alignItems:"center", justifyContent: "center"}}>
+            <Text style = {styles.title} numberOfLines={1}>{props.event.title}</Text>
+            <Text style = {styles.date}>{props.event.commonStartDate}</Text>
+          </View>
+          <View style={{ flex: 25, backgroundColor: 'skyblue', alignItems: "center"}}>
+            <Image 
+            style={{flex:1, width: '100%'}}
+            source = {props.event.thumbnail}
+            resizeMode="cover"
+            />
+          </View>
         </View>
-        <Image
-          source={props.event.media}
+        </TouchableOpacity>
+        </View>
+        );
+  }
+
+
+  return (
+    <View style={{
+      shadowOffset: {
+        height: 5,
+        width: 5
+      },
+      shadowColor: "rgba(0,0,0,1)",
+      shadowOpacity: 0.16,
+  
+      flex: 3,
+      margin: 6,
+      alignItems: 'center',
+    }}>
+    <TouchableOpacity
+      onPress = {() =>
+        navigation.navigate("EventPage", props)
+      }
+
+    >
+
+      <View style={{
+        width: Layout.content.width,
+        height: Layout.content.height,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'stretch',
+      }}>
+        <View style={{ flex: 6, backgroundColor: 'white', alignItems:"center", justifyContent: "center"}}>
+          <Text style = {styles.title} numberOfLines={1}>{props.event.title}</Text>
+          <Text style = {styles.date}>{props.event.commonStartDate}</Text>
+        </View>
+        <View style={{ flex: 25, backgroundColor: 'skyblue', alignItems: "center"}}>
+          <Image 
+          style={{flex:1, width: '100%'}}
+          source = {props.event.thumbnail}
           resizeMode="cover"
-          style={styles.picture}
-        ></Image>
-        <Text style={styles.description}>
-          {props.event.description}
-        </Text>
+          />
+        </View>
+        <View style={{ flex: 6, backgroundColor: 'white', alignItems: "center", justifyContent: 'center'}}>
+          <Text style = {styles.desc} numberOfLines={2}>{props.event.description}</Text>
+        </View>
       </View>
-      <Text style={styles.label}>{props.event.type}</Text>
+      </TouchableOpacity>
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "rgba(255,255,255,1)"
-  },
-  content: {
-    width: 345,
-    height: 263,
-    alignItems: "center",
-    flexGrow:1,
-    justifyContent: "space-around",
-    marginTop: 10
-  },
-  header: {
-    width: 345,
-    height: 48,
-    alignItems: "center",
-    justifyContent: "space-around"
-  },
-  title: {
-    width: 345,
-    height: 30,
-    color: "rgba(0,95,168,1)",
-    fontSize: 18,
+  title:{
+    fontSize: 20,
+    fontWeight:"bold",
     fontFamily: "titleFont",
-    textAlign: "center"
+    color: Colors.titleColour,
+    marginHorizontal: 6
   },
-  date: {
-    color: "rgba(43,43,43,1)",
-    fontSize: 12,
-    fontFamily: "titleFont-regular"
-  },
-  picture: {
-    width: 345,
-    height: 175
-  },
-  description: {
-    width: 340,
-    height: 32,
-    color: "rgba(12,12,12,1)",
-    margin: 0,
-    paddingTop: 3,
-    flex: 1,
-    flexShrink:1,
-    fontSize: 10,
+  date:{
+    fontSize: 16,
     fontFamily: "titleFont-regular",
-    textAlign: "center"
   },
-  label: {
-    color: "rgba(12,12,12,1)",
-    fontSize: 8,
-    fontFamily: "titleFont-regular",
-    textDecorationLine: "underline",
-    marginLeft: 293
+  desc: {
+    fontFamily: "textFont-regular",
+    fontSize: 14,
+    marginHorizontal: 10,
+    marginVertical: 6
   }
 });
 

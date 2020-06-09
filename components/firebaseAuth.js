@@ -25,11 +25,38 @@ const TriviaList = [];
 const QuoteList = [];
 
 export async function getEvent(){
+
+    if(EventList.length > 20) return;
+
     var snapshot = await firebase.firestore()
     .collection('AEvents')
     .orderBy('startDate')
     .get()
     var key = 0;
+
+    if(moment().day() == 0){
+      var event = {
+        key: JSON.stringify(key),
+        title: 'Sunday Morning Service',
+        description: 'Begin your week in spirituality',
+        endTime: '12:30pm',
+        startTime: '9:30am',
+        expandable: new Boolean('false'),
+        thumbnail: {uri: "https://static.wixstatic.com/media/329225_17684e1364234aa99cdacbd8e29e7c8f~mv2.jpg"},
+        RawStartDate: moment().unix(),
+        startDate: moment().format('YYYY-MM-DD'),
+        commonStartDate: moment().format('MMMM Do, YYYY'),
+        RawEndDate: "",
+        endDate: "",
+        type: "weekly",
+        commonEndDate: "",
+        status: "today"
+      };
+      EventList.push(event);
+      key++;
+
+    }
+
     snapshot.forEach((doc) => {
         var event = {};
 
@@ -39,52 +66,57 @@ export async function getEvent(){
         event.endTime = doc.get('endTime');  
         event.startTime = doc.get('startTime');  
         event.expandable = new Boolean (doc.get('expandable'));  
-        event.media = {uri: "https://static.wixstatic.com/media/28e3bd_56257553de024cb7871d7a3d56da23e0~mv2.png"};  
-        
-        var startDate = doc.get('startDate');
-        if (startDate == "") {
-            event.startDate = "1999-01-01";
-            event.commonStartDate = "January 1";
-        }
-        else {
-            var month = startDate.toDate().getMonth()+1;
-            var day = startDate.toDate().getDate();
-            if(month <= 9) month = "0" + JSON.stringify(month);
-            if(day <= 9) day = "0" + JSON.stringify(day);
-            event.startDate =  startDate.toDate().getFullYear() + "-" + month + "-" + day;
-            event.commonStartDate = getMonthName(month) + " " + day;
+        event.thumbnail = {uri: doc.get('thumbnail')};  
 
+        event.RawStartDate = doc.get('startDate').seconds * 1000;
+        event.startDate = moment(event.RawStartDate).format('YYYY-MM-DD');
+        event.commonStartDate = moment(event.RawStartDate).format('MMMM Do, YYYY');
+
+        event.RawEndDate = doc.get('endDate');
+        if(event.RawEndDate != ''){
+          event.endDate = moment(event.RawEndDate.seconds * 1000).format('YYYY-MM-DD');
+          event.commonEndDate = moment(event.RawEndDate).format('MMMM Do YYYY');;
         }
 
-
-        var endCheck = doc.get('endDate');
-        if (endCheck == ""){
-            event.endDate = event.startDate;
-            event.commonEndDate = event.commonStartDate;
-        }
-        else {
-            var month = endCheck.toDate().getMonth();
-            var day = endCheck.toDate().getDate();
-            if(month <= 9) month = "0" + JSON.stringify(month);
-            if(day <= 9) day = "0" + JSON.stringify(day);
-            event.endDate =  endCheck.toDate().getFullYear() + "-" + month + "-" + day;
-            event.commonEndDate = getMonthName(month) + " " + day;
-
-        }  
-        
-        
-        var clear = true;
-        for(var i = 0; i < EventList.length; i ++){
-            if ((EventList[i].title == event.title && EventList[i].startDate == event.startDate) ||(event.startDate == "1999-01-01")){
-                clear = false;
-            }
-        }
         if(event.startDate > moment().format()) event.type = doc.get('type');  
         else event.type = "Past Event";
 
-        if(clear)EventList.push(event);
-        key = key + 1;
+
+        if(event.startDate > moment().format()){
+          event.status = 'future'
+        }
+        else if(event.startDate < moment().format()){
+          event.status = 'past'
+        }
+        else event.status = 'today'
+
+
+        if(!event.RawStartDate == "" && !(event in EventList)){
+          EventList.push(event);
+          key++;
+        }
     });
+
+    EventList.push({
+      key: JSON.stringify(key),
+      title: 'Aarti',
+      description: 'You are invited to join us as we concluded each evening with Aarti at 8:00 pm.',
+      endTime: '8:20pm',
+      startTime: '8:00pm',
+      expandable: new Boolean('false'),
+      thumbnail: {uri: "https://static.wixstatic.com/media/28e3bd_b98b6dbd6893467a8930e473b0a7756a~mv2.png"},
+      RawStartDate: moment().format(),
+      startDate: moment().format('YYYY-MM-DD'),
+      commonStartDate: moment().format('MMMM Do, YYYY'),
+      RawEndDate: "",
+      endDate: "",
+      type: "daily",
+      commonEndDate: "",
+      status: "today"
+    });
+
+    key++;
+
     console.log(EventList);
     return EventList;
 }

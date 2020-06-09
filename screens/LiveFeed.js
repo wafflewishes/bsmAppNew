@@ -10,7 +10,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import FeedContent from "../components/FeedContent";
 import SideSwiper from "../components/SideSwiper";
 
-import {EventList} from '../components/firebaseAuth';
+import {EventList, QuoteList} from '../components/firebaseAuth';
 
 import vishnuLakshmiQuestions from "../assets/data/vishnuLakshmi";
 import ramayanQuestions from "../assets/data/ramayan";
@@ -18,21 +18,18 @@ import hanumanQuestions from "../assets/data/hanuman";
 import shivaQuestions from "../assets/data/shiva";
 import generalQuestions from "../assets/data/general";
 
+import Colors from '../constants/Colors';
+
 import Quiz from './Quiz';
 
 import EventPage from './EventPage';
 import HEvent from "../components/HEvent";
 
 var counter = 0;
+var quoteCounter = 0;
 const MAXSTRINGLENGTH = 3;
 var feed = [];
-
-
-
-
 var key = 0;
-
-
 const styles = StyleSheet.create({
 
   container: {
@@ -41,18 +38,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 12
   },
-  content: {
-    width: 345,
-    height: 290,
-    shadowOffset: {
-      height: 5,
-      width: 5
-    },
-    shadowColor: "rgba(0,0,0,1)",
-    shadowOpacity: 0.16,
-    margin: 6
-  },
-
     header2: {
       width: 375,
       height: 95
@@ -64,7 +49,7 @@ const styles = StyleSheet.create({
     feedContainer: {
       width: "100%",
       height: "100%",
-      backgroundColor: "rgba(230, 230, 230,1)"
+      backgroundColor: Colors.lightBlue
     },
     feedContainer_contentContainerStyle: {
       width: "100%",
@@ -113,11 +98,20 @@ const styles = StyleSheet.create({
       if(counter + MAXSTRINGLENGTH <= EventList.length){
         for (let index = 0; index < MAXSTRINGLENGTH; index++) {
 
-          feed.push({type: "Event", item: EventList[counter], key:JSON.stringify(key)})
-          counter++;
+          if(EventList[counter].status != 'today'){
+            feed.push({type: "Event", item: EventList[counter], key:JSON.stringify(key)});
+          }
           key++;
+          counter++;
+          
         }
         feed.push({type: "Trivia", key: JSON.stringify(key)});
+        key++;
+        while(QuoteList[quoteCounter].quote.length < 20){
+          quoteCounter++;
+        }
+        feed.push({type: 'Quote', quote: QuoteList[quoteCounter], key: JSON.stringify(key)});
+        quoteCounter++;
         key++;
       }
     } 
@@ -126,17 +120,16 @@ const styles = StyleSheet.create({
         <View style={styles.feedContainer}>
           <ScrollView
             horizontal={false}
-            contentContainerStyle={styles.feedContainer_contentContainerStyle}
             showsVerticalScrollIndicator={false}
           >
             <TodayContent/>
             <SideSwiper/>
             <FlatList
                 data={feed}
-                contentContainerStyle={styles.container}
                 renderItem={({item}) => {
-                  if(item.type == "Event") return <Event style={styles.content} event={item.item}/>
+                  if(item.type == "Event") return <Event event={item.item}/>
                   else if(item.type == "Trivia") return <QuizRowItem/>
+                  else if(item.type == 'Quote') return <Quote set={item.quote}/>
                 }}
                 onEndReached={this.loadFeed}
             />
@@ -152,10 +145,13 @@ const FeedStack = createStackNavigator();
 
 export default function FeedStackScreen() {
   return(
-    <FeedStack.Navigator headerMode = "none" initialRouteName = "Home">
-      <FeedStack.Screen name="Home" component={LiveFeed}/>
+    <FeedStack.Navigator  initialRouteName = "Home" screenOptions={{headerStyle: {backgroundColor: Colors.header, shadowColor: 'transparent'}, headerTintColor: "white", headerTitleStyle: {
+      fontFamily: 'titleFont-regular',
+      fontSize: 20
+    },}}>
+      <FeedStack.Screen name="Home" component={LiveFeed} options={{title: "Bhavani Shankar Mandir"}}/>
       <FeedStack.Screen name="EventPage" component={EventPage}/>
-      <FeedStack.Screen name="Quiz" component={Quiz} />
+      <FeedStack.Screen name="Quiz" component={Quiz} options={({ route }) => ({ title: route.params.title })}/>
     </FeedStack.Navigator>
   );
 }

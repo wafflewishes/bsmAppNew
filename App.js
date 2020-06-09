@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import {getEvent, EventList, getTrivia} from './components/firebaseAuth';
+import {getEvent, EventList, getQuotes} from './components/firebaseAuth';
 import { AppLoading,SplashScreen } from 'expo';
 
 
@@ -21,6 +21,12 @@ export default function App(props) {
 
   let [fontsLoaded] = useFonts({
     'textFont-regular': require('./assets/fonts/georgia-regular.ttf'),
+    'textFont-bold': require('./assets/fonts/georgiab.ttf'),
+    'textFont-italic': require('./assets/fonts/georgiai.ttf'),
+    'textFont-bolditalic': require('./assets/fonts/georgiaz.ttf'),
+
+
+
     "titleFont": require('./assets/fonts/PatuaOne-Regular.ttf'),
     'titleFont-regular': require('./assets/fonts/kadwa-regular.ttf'),
   });
@@ -30,6 +36,7 @@ export default function App(props) {
       try {
         SplashScreen.preventAutoHide();
           await getEvent();
+          await getQuotes();
 
       } catch (e) {
         // We might want to provide this error information to an error reporting service
@@ -54,7 +61,7 @@ export default function App(props) {
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="light-content" />}
           <NavigationContainer linking={LinkingConfiguration}>
-            <Stack.Navigator op>
+            <Stack.Navigator>
               <Stack.Screen name="Root" component={BottomTabNavigator} />
             </Stack.Navigator>
           </NavigationContainer>
@@ -70,7 +77,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
-
-async function loadFirebase(){
-  return Promise.all(getEvent());
-}

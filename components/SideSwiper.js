@@ -17,7 +17,7 @@ export default class SideSwiper extends React.Component {
     super(props);
     this.state = { loaded: false };
     EventList.forEach(element => 
-      {if(Date.parse(element.startDate) > Date.parse(TODAY)){
+      {if(Date.parse(element.startDate) > Date.parse(TODAY) && element.status != 'today'){
       dates.push(element)}},
       );
       console.log("loading state");
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
         height: 470,
         backgroundColor: "#ffffff",
         borderColor: "rgba(124,185,231,1)",
+        borderBottomColor: Colors.lightBlue,
         borderWidth: 0,
         borderTopWidth: 6,
         borderBottomWidth: 6
@@ -107,6 +108,7 @@ const styles = StyleSheet.create({
         color: Colors.titleColour,
         alignSelf: "stretch",
         fontSize: 20,
+        margin: 10,
         fontFamily: "titleFont",
         textAlign: "center"
       }

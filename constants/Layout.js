@@ -9,4 +9,8 @@ export default {
     height,
   },
   isSmallDevice: width < 375,
+  content:{
+    height: 420,
+    width: 360
+  }
 };

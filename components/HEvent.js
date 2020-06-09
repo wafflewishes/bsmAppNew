@@ -13,14 +13,14 @@ function HEvent(props) {
       }}>
       <View style={styles.upcomingBox}>
         <Image
-          source={require("../assets/images/krishna.jpg")}
+          source={props.event.thumbnail}
           resizeMode="cover"
           style={styles.picture}
         />
 
         <View style={styles.dateBox}>
           <Text style={styles.upcomingDate}>
-          {props.event.startDate}
+          {props.event.commonStartDate}
           </Text>
         </View>
 

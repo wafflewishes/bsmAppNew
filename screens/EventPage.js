@@ -16,8 +16,9 @@ export default class EventPage extends React.Component {
             backgroundColor="blue"
             contentBackgroundColor="white"
             parallaxHeaderHeight={250}
+            
             renderBackground = {() => (<Image
-                source={require("../assets/images/krishna.jpg")}
+                source={this.state.event.thumbnail}
                 resizeMode="cover"
                 style={styles.picture}
               ></Image>)}>
@@ -37,6 +38,7 @@ export default class EventPage extends React.Component {
 const styles = StyleSheet.create({
     container: {
         marginTop: 10,
+        height: "200%"
     },
     picture: {
       width: "100%",
@@ -55,10 +57,8 @@ const styles = StyleSheet.create({
         fontFamily: "titleFont-regular",
     },
     descriptionBox: {
-        marginTop: 13,
-        borderTopWidth: 3,
-        borderTopEndRadius: 20,
-        borderTopColor: "black"
+        marginTop: 20,
+
     },
     date: {
         fontSize: 23,

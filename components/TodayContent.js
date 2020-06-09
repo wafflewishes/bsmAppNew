@@ -15,10 +15,21 @@ var count;
   constructor(props)
   {
     super(props);
-    EventList.forEach(element => 
-      {if(Date.parse(element.startDate) > Date.parse(TODAY)){
-      eventData.push(element)}},
-      );
+    this.state = {loaded: false};
+    this.loadToday = this.loadToday.bind(this);
+    this.loadToday();
+  }
+
+  loadToday(){
+    if(!this.state.loaded){
+      EventList.forEach(element => 
+        {if(element.status == 'today'){
+        eventData.push(element)}},
+        );
+        this.setState({loaded: true});
+    }
+    
+    return;
   }
 
   render(){
@@ -30,8 +41,7 @@ var count;
               <View style={styles.todayMiddleBar}></View>
             </View>
             <FlatList
-            data = {eventData.slice(0,5)}
-            keyExtractor = {(item, index) => item.key}
+            data = {eventData}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => (
               <Regular

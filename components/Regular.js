@@ -15,7 +15,7 @@ function Regular(props) {
       <View style={styles.boxStack}>
         <View style={styles.box}>
           <Image
-            source={require("../assets/images/hanuman6.jpg")}
+            source={props.event.thumbnail}
             resizeMode="cover"
             style={styles.picture}
           ></Image>

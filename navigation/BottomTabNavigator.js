@@ -7,24 +7,26 @@ import FeedStackScreen from '../screens/LiveFeed';
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
 
+import Colors from '../constants/Colors';
+
 export default function BottomTabNavigator({ navigation, route }) {
   // Set the header title on the parent stack navigator depending on the
   // currently active tab. Learn more in the documentation:
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
 
   var tabOptions = {
-    activeBackgroundColor: "rgba(0,133,200,1)",
-    inactiveBackgroundColor: "rgba(0,93,150,1)",
-    showLabel : true,
+    activeBackgroundColor: Colors.header,
+    inactiveBackgroundColor: Colors.header,
+    showLabel : false,
+    
     activeTintColor: "white",
     labelStyle: {
       fontFamily: "titleFont",
-      
     },
     style:{
       marginBottom: -6,
-      height: 55
-
+      height: 55,
+      borderTopWidth: 0
     }
   }
 
@@ -32,12 +34,14 @@ export default function BottomTabNavigator({ navigation, route }) {
     headerTitle: getHeaderTitle(route) ,
     headerStyle: {
       backgroundColor: 'rgba(0,93,150,1)',
+      shadowColor: 'transparent'
     },
-    headerTintColor: "white"
+    headerTintColor: "white",
+    headerShown: false,
   });
 
   return (
-    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME} tabBarOptions={tabOptions}>
+    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME} tabBarOptions={tabOptions} >
       <BottomTab.Screen
         name="Home"
         component={FeedStackScreen}
@@ -51,7 +55,6 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="Calendar"
         component={CalendarStackScreen}
         options={{
-
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-calendar" />,
         }}
       />

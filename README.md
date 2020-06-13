@@ -23,10 +23,10 @@ Home Screen:<br>
 <br><img src = "assets/Visuals/TriviaInFeed.PNG" width = "280"><img src = "assets/Visuals/TriviaPage.PNG" width = "280"> <img src = "assets/Visuals/TriviaChoice.PNG" width = "280">
 
 <br>Event Page:
-<br><img src = "assets/Visuals/June 13/event-noTime.PNG" width = "350"> 
-<br><img src = "assets/Visuals/June 13/event-period.PNG" width = "350"> 
-<br><img src = "assets/Visuals/June 13/event-startTime.PNG" width = "350"> 
-<br><img src = "assets/Visuals/June 13/event-link.PNG" width = "350"> 
+<br><img src = "assets/Visuals/June 13/event-noTime.PNG" width = "220"> 
+<br><img src = "assets/Visuals/June 13/event-period.PNG" width = "220"> 
+<br><img src = "assets/Visuals/June 13/event-startTime.PNG" width = "220"> 
+<br><img src = "assets/Visuals/June 13/event-link.PNG" width = "220"> 
 
 Event Page Scrolling (outdated, see full video update):
 <br>https://youtu.be/jcV7yBG85NM

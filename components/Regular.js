@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+import moment from 'moment';
 
 function Regular(props) {
 
@@ -10,29 +11,38 @@ function Regular(props) {
     }>
       <TouchableOpacity onPress = {() =>
         navigation.navigate("EventPage", props)
-      }>
+      }
+      style={{flex:1}}
+
+      >
 
       <View style={styles.boxStack}>
-        <View style={styles.box}>
+
+        <View style={styles.picture}>
           <Image
             source={props.event.thumbnail}
             resizeMode="cover"
-            style={styles.picture}
+            style={{flex:1}}
           ></Image>
         </View>
-        <View style={styles.text}>
-          <View style={styles.header}>
-            <Text style={styles.title}>{props.event.title}</Text>
-            <Text style={styles.time}>{props.event.commonStartDate}</Text>
-          </View>
-          <View style={styles.divider}></View>
-          <Text style={styles.description}>
-            {props.event.description}
-          </Text>
-        </View>
-      </View>
-      </TouchableOpacity>
 
+        <View style={styles.textBox}>
+          <View style={styles.titleBox}>
+            <Text style={styles.title}>{props.event.title}</Text>
+          </View>
+          <View style={[styles.titleBox, {flex: 3}]}>
+            <Text style={styles.time}>{moment(props.event.startTime, "h:mm").format('h:mm a')} </Text>
+          </View>
+          <View style={[styles.titleBox, {flex: 7}]}>
+            <Text style={styles.description} numberOfLines={2}>{props.event.description}</Text>
+          </View>
+
+        </View>
+
+      </View>
+      
+      
+      </TouchableOpacity>
     </View>
   );
 }
@@ -40,86 +50,57 @@ function Regular(props) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "rgba(241,241,241,1)",
-    elevation: 3,
-    shadowOffset: {
-      height: 5,
-      width: 5
-    },
-    shadowColor: "rgba(0,0,0,1)",
-    shadowOpacity: 0.14,
-    shadowRadius: 1,
     
   },
-  box: {
-    height: 103,
-    backgroundColor: "rgba(255,255,255,1)",
 
-  },
   picture: {
-    width: 151,
-    height: 103
+   flex: 6
   },
-  text: {
-    top: 0,
-    left: 151,
-    width: 195,
-    height: 103,
-    position: "absolute",
+  textBox: {
+    flex: 8,
     alignItems: "stretch",
     flexWrap: "nowrap",
-    justifyContent: "space-between"
+    justifyContent: "center",
+    paddingHorizontal: 8,
+    
   },
-  header: {
-    width: 120,
-    height: 27,
-    justifyContent: "space-around",
-    margin: 0,
-    marginTop: 8,
-    marginBottom: 6,
-    marginLeft: 8
+
+  titleBox:{
+    flex:4,
+    justifyContent:'center',
+    alignContent:'center'
   },
+
   title: {
-    width: 170,
-    height: 16,
     color: "rgba(0,95,168,1)",
-    opacity: 0.9,
-    fontSize: 16,
-    fontFamily: "textFont-regular"
+    fontSize: 20,
+    fontFamily: "titleFont-regular",
+    justifyContent:'center',
+
+
   },
   time: {
-    width: 97,
-    height: 14,
     color: "rgba(0,0,0,1)",
     opacity: 0.9,
-    fontSize: 14,
-    fontFamily: "textFont-regular"
-  },
-  divider: {
-    width: 25,
-    height: 1,
-    backgroundColor: "rgba(0,0,0,0.41)",
-    margin: 0,
-    marginTop: 8,
-    marginBottom: 6,
-    marginLeft: 8
+    fontSize: 16,
+    fontFamily: "textFont-semiBold",
+
   },
   description: {
-    width: 171,
-    height: 37,
     color: "rgba(0,0,0,1)",
     opacity: 0.9,
-    justifyContent: "center",
-    margin: 0,
-    marginTop: 8,
-    marginBottom: 6,
-    marginLeft: 8,
-    fontSize: 9,
-    fontFamily: "textFont-regular"
+    fontSize: 13,
+    fontFamily: "textFont-regular",
+
   },
+  divider: {
+    flex:1,
+    backgroundColor: "rgba(0,0,0,0.41)",
+  },
+
   boxStack: {
-    width: "100%",
-    height: 103
-    
+    flex: 1,
+    flexDirection:'row'
   }
 });
 

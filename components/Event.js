@@ -10,7 +10,46 @@ var today = moment().format();
 function Event(props) {
   const navigation = useNavigation();  
 
-  if(props.event.description.length <= 0){
+  if(props.event.status == 'week'){
+    return (
+      <View style={{
+        shadowOffset: {
+          height: 5,
+          width: 5
+        },
+        shadowColor: "rgba(0,0,0,1)",
+        shadowOpacity: 0.16,
+    
+        flex: 3,
+        margin: 6,
+        alignItems: 'center',
+      }}>
+        <View style={{
+          width: Layout.content.width,
+          height: Layout.content.height-150,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'stretch',
+        }}>
+          <View style={{ flex: 4, backgroundColor: 'white', alignItems:"center", justifyContent: "center"}}>
+            <Text style = {[styles.title, ]} numberOfLines={1}>{props.event.title}</Text>
+            <Text style = {[styles.date, ]}>{props.event.commonStartDate}</Text>
+          </View>
+          <View style={{ flex: 11, alignItems: "center"}}>
+            <Image 
+            style={{flex:1, width: '100%'}}
+            source = {props.event.thumbnail}
+            resizeMode="cover"
+            />
+          </View>
+        </View>
+        </View>
+        );
+
+  }
+
+
+  else if(props.event.description.length <= 0){
     return (
       <View style={{
         shadowOffset: {
@@ -55,7 +94,8 @@ function Event(props) {
         );
   }
 
-
+  
+else
   return (
     <View style={{
       shadowOffset: {
@@ -114,7 +154,7 @@ const styles = StyleSheet.create({
   },
   date:{
     fontSize: 16,
-    fontFamily: "titleFont-regular",
+    fontFamily: "textFont-semiBold",
   },
   desc: {
     fontFamily: "textFont-regular",

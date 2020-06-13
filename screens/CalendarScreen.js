@@ -3,13 +3,15 @@ import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ImageBackground }
 import {Calendar, CalendarList} from "react-native-calendars";
 import { createStackNavigator, HeaderTitle } from '@react-navigation/stack';
 import EventPage from './EventPage';
+import Web from './Web';
+
 
 import { useNavigation } from '@react-navigation/native';
 
 import Col from '../constants/Colors';
 
 import moment from 'moment';
-import {EventList} from '../components/firebaseAuth';
+import {EventList, loadMoreEvents} from '../components/firebaseAuth';
 
 import Layout from '../constants/Layout';
 import { FlatList } from 'react-native-gesture-handler';
@@ -33,9 +35,15 @@ class LinksScreen extends React.Component {
 
   constructor(){
     super();
-    this.state = {loaded: false}
+    this.state = {tems: {}}
+    this.loadCal=this.loadCal.bind(this);
+  }
 
+  componentDidMount(){
+    this.loadCal();
+  }
 
+  loadCal = () => {
     dates.forEach(day => {
       mark[day] = {selected: true, marked: true};
     });
@@ -46,44 +54,9 @@ class LinksScreen extends React.Component {
     );
     
     obj = dates.reduce((c, v) => Object.assign(c, {[v]: {selected: true,marked: true,disabled: false, selectedColor:'#e0a227'}}), {});
-  
-    var day = moment();
-    var yearEnd =moment().add(6, 'months').format('YYYY-MM-DD');
+    this.setState({items:obj});
+    this.forceUpdate();
 
-
-    while (day <= yearEnd){
-      if(!(day.format('YYYY-MM-DD') in obj)) {
-        switch (day.format('dddd')){
-          
-          case 'Sunday':
-            Object.assign(weekly, {[day.format("YYYY-MM-DD")]: {marked: true, dotColor: 'yellow'}});
-
-            break;
-
-          case 'Monday':
-            Object.assign(weekly, {[day.format("YYYY-MM-DD")]: {marked: true, dotColor: 'blue'}});
-
-            break;
-
-          case 'Tuesday':
-            Object.assign(weekly, {[day.format("YYYY-MM-DD")]: {marked: true, dotColor: 'red'}});
-
-            break;
-
-          case 'Friday':
-            Object.assign(weekly, {[day.format("YYYY-MM-DD")]: {marked: true, dotColor: 'pink'}});
-            
-            break;
-          
-            default:
-            break;
-        }
-      }
-      day.add(1, 'days');
-    }
-    
-    Object.assign(obj, weekly);
-    this.state = {loaded: true}
   }
 
  loadDate = day =>{
@@ -109,9 +82,10 @@ render(){
       <View style={{alignItems: 'stretch', height: '100%',}}>
           <View style = {{flex:10}}>
           <CalendarList
-              markedDates = {obj}
+              markedDates = {this.state.items}
               onDayPress = {(day) =>  {  this.loadDate(day)  }}
               calendarWidth={Layout.window.width}
+              onMonthChange={(month)=> loadMoreEvents().then(this.loadCal())}
               pastScrollRange= {0}
               current={TODAY}
               theme={customOptions}
@@ -190,6 +164,8 @@ export default function CalendarStackScreen(){
     }}}>
       <CalendarStack.Screen name="Calendar" component={LinksScreen}/>
       <CalendarStack.Screen name="EventPage" component={EventPage} options={({ route }) => ({ title: route.params.event.commonStartDate })}/>
+      <CalendarStack.Screen name="Web" component={Web} options={({ route }) => ({ title:'' })}/>
+
     </CalendarStack.Navigator>
   );
 }
@@ -208,7 +184,7 @@ const styles = StyleSheet.create({
   },
   title:{
     color: 'white',
-    fontFamily: 'textFont-regular', 
+    fontFamily: 'textFont-semiBold', 
     fontSize: 20,
     textAlign:'center',
     alignSelf:'center'

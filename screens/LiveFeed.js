@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, ScrollView, SafeAreaView, FlatList, Text } from "react-native";
+import { StyleSheet, View, ScrollView, SafeAreaView, FlatList, Text, StatusBar } from "react-native";
 
 import Event from "../components/Event";
 import Quote from "../components/Quote";
@@ -9,6 +9,7 @@ import TodayContent from "../components/TodayContent";
 import { createStackNavigator } from '@react-navigation/stack';
 import FeedContent from "../components/FeedContent";
 import SideSwiper from "../components/SideSwiper";
+import WeeklyButton from '../components/WeeklyButton';
 
 import {EventList, QuoteList} from '../components/firebaseAuth';
 
@@ -19,8 +20,11 @@ import shivaQuestions from "../assets/data/shiva";
 import generalQuestions from "../assets/data/general";
 
 import Colors from '../constants/Colors';
+import moment from 'moment';
 
 import Quiz from './Quiz';
+import Week from './Week';
+import Web from './Web';
 
 import EventPage from './EventPage';
 import HEvent from "../components/HEvent";
@@ -30,6 +34,10 @@ var quoteCounter = 0;
 const MAXSTRINGLENGTH = 3;
 var feed = [];
 var key = 0;
+var quoteNo = 0;
+var quoteSet = {};
+
+
 const styles = StyleSheet.create({
 
   container: {
@@ -92,13 +100,29 @@ const styles = StyleSheet.create({
         super(props);
         this.loadFeed = this.loadFeed.bind(this);
         this.loadFeed();
+        var tod=moment().endOf('day').fromNow();
+        var now = moment();
+        var timeFromDayStart = now - moment().startOf('day');
+        var timeToDayEnd = moment().endOf('day') - now;
+        if(timeFromDayStart < timeToDayEnd){
+          quoteSet = QuoteList.Morning;
+        }
+        else {
+          if(timeToDayEnd < moment().startOf('day').add(12, 'hours')){
+            quoteSet = QuoteList.Night;
+          }
+          else{
+            quoteSet = QuoteList.Afternoon;
+          }
+        }
+        
     }
 
     loadFeed = () => {
       if(counter + MAXSTRINGLENGTH <= EventList.length){
         for (let index = 0; index < MAXSTRINGLENGTH; index++) {
 
-          if(EventList[counter].status != 'today'){
+          if(EventList[counter].status == 'past'){
             feed.push({type: "Event", item: EventList[counter], key:JSON.stringify(key)});
           }
           key++;
@@ -107,10 +131,7 @@ const styles = StyleSheet.create({
         }
         feed.push({type: "Trivia", key: JSON.stringify(key)});
         key++;
-        while(QuoteList[quoteCounter].quote.length < 20){
-          quoteCounter++;
-        }
-        feed.push({type: 'Quote', quote: QuoteList[quoteCounter], key: JSON.stringify(key)});
+        feed.push({type: 'Quote', quote: quoteSet[quoteCounter], key: JSON.stringify(key)});
         quoteCounter++;
         key++;
       }
@@ -118,20 +139,23 @@ const styles = StyleSheet.create({
     render(){
         return(
         <View style={styles.feedContainer}>
+
           <ScrollView
             horizontal={false}
             showsVerticalScrollIndicator={false}
           >
             <TodayContent/>
+            <WeeklyButton/>
             <SideSwiper/>
             <FlatList
                 data={feed}
                 renderItem={({item}) => {
                   if(item.type == "Event") return <Event event={item.item}/>
-                  else if(item.type == "Trivia") return <QuizRowItem/>
-                  else if(item.type == 'Quote') return <Quote set={item.quote}/>
+                  //else if(item.type == "Trivia") return <QuizRowItem/>
+                  //else if(item.type == 'Quote') return <Quote set={item.quote}/>
                 }}
                 onEndReached={this.loadFeed}
+                ListFooterComponent={()=> {return <Quote set={ quoteSet[Math.floor(Math.random() * quoteSet.length-1) + 1]}/>}}
             />
 
           </ScrollView>
@@ -150,7 +174,9 @@ export default function FeedStackScreen() {
       fontSize: 20
     },}}>
       <FeedStack.Screen name="Home" component={LiveFeed} options={{title: "Bhavani Shankar Mandir"}}/>
-      <FeedStack.Screen name="EventPage" component={EventPage}/>
+      <FeedStack.Screen name="EventPage" component={EventPage} />
+      <FeedStack.Screen name="Web" component={Web} options={({ route }) => ({ title:'' })}/>
+      <FeedStack.Screen name="Week" component={Week} options={{headerShown: false}}/>
       <FeedStack.Screen name="Quiz" component={Quiz} options={({ route }) => ({ title: route.params.title })}/>
     </FeedStack.Navigator>
   );

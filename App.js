@@ -20,10 +20,12 @@ export default function App(props) {
 
 
   let [fontsLoaded] = useFonts({
-    'textFont-regular': require('./assets/fonts/georgia-regular.ttf'),
-    'textFont-bold': require('./assets/fonts/georgiab.ttf'),
-    'textFont-italic': require('./assets/fonts/georgiai.ttf'),
-    'textFont-bolditalic': require('./assets/fonts/georgiaz.ttf'),
+    'textFont-regular': require('./assets/fonts/Nunito-Regular.ttf'),
+    'textFont-bold': require('./assets/fonts/Nunito-Bold.ttf'),
+    'textFont-italic': require('./assets/fonts/Nunito-Italic.ttf'),
+    'textFont-semiBold': require('./assets/fonts/Nunito-SemiBold.ttf'),
+
+    'textFont-bolditalic': require('./assets/fonts/Nunito-BoldItalic.ttf'),
 
 
 

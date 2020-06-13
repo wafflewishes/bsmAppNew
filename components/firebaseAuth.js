@@ -2,6 +2,8 @@ import firebase from 'firebase';
 import { View, Image } from 'react-native';
 import { State } from 'react-native-gesture-handler';
 import moment from 'moment';
+import WeeklyButton from './WeeklyButton';
+import Quote from './Quote';
 
 require('firebase/firestore');
 
@@ -22,7 +24,10 @@ projectId: "bsm-application-1580966372867",});
 
 const EventList = [];
 const TriviaList = [];
-const QuoteList = [];
+const QuoteList = {};
+const WeeklyList = [];
+var key = 0;
+var lastDate ='';
 
 export async function getEvent(){
 
@@ -30,53 +35,44 @@ export async function getEvent(){
 
     var snapshot = await firebase.firestore()
     .collection('AEvents')
+    .where('startDate', '>=', new Date(moment()))
     .orderBy('startDate')
+    .limit(3)
     .get()
-    var key = 0;
 
-    if(moment().day() == 0){
-      var event = {
-        key: JSON.stringify(key),
-        title: 'Sunday Morning Service',
-        description: 'Begin your week in spirituality',
-        endTime: '12:30pm',
-        startTime: '9:30am',
-        expandable: new Boolean('false'),
-        thumbnail: {uri: "https://static.wixstatic.com/media/329225_17684e1364234aa99cdacbd8e29e7c8f~mv2.jpg"},
-        RawStartDate: moment().unix(),
-        startDate: moment().format('YYYY-MM-DD'),
-        commonStartDate: moment().format('MMMM Do, YYYY'),
-        RawEndDate: "",
-        endDate: "",
-        type: "weekly",
-        commonEndDate: "",
-        status: "today"
-      };
-      EventList.push(event);
-      key++;
-
-    }
 
     snapshot.forEach((doc) => {
         var event = {};
 
-        event.key = JSON.stringify(key);
         event.title = doc.get('title');
         event.description = doc.get('description');
-        event.endTime = doc.get('endTime');  
-        event.startTime = doc.get('startTime');  
+
+        if(doc.get('endTime') == "") event.endTime = '';
+        else event.endTime = moment(doc.get('endTime').seconds * 1000).format('H:mm');  
+        if(doc.get('startTime') == "") event.startTime = '';
+        else event.startTime = moment(doc.get('startTime').seconds * 1000).format('H:mm');  
+
         event.expandable = new Boolean (doc.get('expandable'));  
         event.thumbnail = {uri: doc.get('thumbnail')};  
+        event.media = doc.get('media');
+        event.baseStartDate=doc.get('startDate');
 
-        event.RawStartDate = doc.get('startDate').seconds * 1000;
+        event.RawStartDate = event.baseStartDate.seconds * 1000;
         event.startDate = moment(event.RawStartDate).format('YYYY-MM-DD');
         event.commonStartDate = moment(event.RawStartDate).format('MMMM Do, YYYY');
 
-        event.RawEndDate = doc.get('endDate');
-        if(event.RawEndDate != ''){
-          event.endDate = moment(event.RawEndDate.seconds * 1000).format('YYYY-MM-DD');
-          event.commonEndDate = moment(event.RawEndDate).format('MMMM Do YYYY');;
+        event.baseEndDate=doc.get('endDate');
+
+        event.RawEndDate = event.baseEndDate.seconds * 1000;
+        if(event.baseEndDate != ''){
+          event.endDate = moment(event.RawEndDate).format('YYYY-MM-DD');
+          event.commonEndDate = moment(event.RawEndDate).format('MMMM Do, YYYY');
+          event.period = moment(event.RawStartDate).format('MMMM Do') + " - " + event.commonEndDate;
         }
+        else event.period = event.commonStartDate;
+
+        event.key = (event.title+event.startDate);
+
 
         if(event.startDate > moment().format()) event.type = doc.get('type');  
         else event.type = "Past Event";
@@ -92,17 +88,126 @@ export async function getEvent(){
 
 
         if(!event.RawStartDate == "" && !(event in EventList)){
+          if (event.status == 'today') WeeklyList.push(event);
           EventList.push(event);
           key++;
+          lastDate=event.baseStartDate;
         }
     });
 
-    EventList.push({
-      key: JSON.stringify(key),
+
+
+
+
+    key++;
+
+    console.log(EventList);
+    loadWeekly();
+}
+
+function loadWeekly(){
+  
+
+  var event={};
+  var day = moment().day();
+  switch(day){
+    case 0:
+      event = {
+        key: 'Sunday Morning Service'+ moment().format('YYYY-MM-DD'),
+        title: 'Sunday Morning Service',
+        description: 'Begin your week in spirituality',
+        endTime: '12:30',
+        startTime: '9:30',
+        expandable: new Boolean('false'),
+        thumbnail: {uri: "https://static.wixstatic.com/media/329225_17684e1364234aa99cdacbd8e29e7c8f~mv2.jpg"},
+        RawStartDate: moment().unix(),
+        startDate: moment().format('YYYY-MM-DD'),
+        commonStartDate: moment().format('MMMM Do, YYYY'),
+        RawEndDate: "",
+        endDate: "",
+        type: "weekly",
+        commonEndDate: "",
+        status: "today",
+        period: moment('09:30', "hh:mm").fromNow()
+      };
+      break;
+     case 1:
+      event = {
+        key: 'Shiva Puja'+ moment().format('YYYY-MM-DD'),
+        title: 'Shiva Puja',
+        description: 'We offer special puja to the lingam, and sing the praises of bhagwan Shiva.',
+        endTime: '20:00',
+        startTime: '18:30',
+        expandable: new Boolean('false'),
+        thumbnail: {uri: "https://static.wixstatic.com/media/329225_3f07664debae4bdfa32c6ae72c374aa7~mv2.jpg"},
+        RawStartDate: moment().unix(),
+        startDate: moment().format('YYYY-MM-DD'),
+        commonStartDate: moment().format('MMMM Do, YYYY'),
+        RawEndDate: "",
+        endDate: "",
+        type: "weekly",
+        commonEndDate: "",
+        status: "today",
+        period: moment('18:30', "hh:mm").fromNow()
+
+      };
+      break;
+ case 2:
+      event = {
+        key: 'Hanuman Puja'+ moment().format('YYYY-MM-DD'),
+        title: 'Hanuman Puja',
+        description: 'We offer special puja to Hanumanji, and chant the Hanumanji Chalisa.',
+        endTime: '20:00',
+        startTime: '18:30',
+        expandable: new Boolean('false'),
+        thumbnail: {uri: "https://static.wixstatic.com/media/28e3bd_19d9728974b84f3eb2e4ec48c426a750~mv2.jpg"},
+        RawStartDate: moment().unix(),
+        startDate: moment().format('YYYY-MM-DD'),
+        commonStartDate: moment().format('MMMM Do, YYYY'),
+        RawEndDate: "",
+        endDate: "",
+        type: "weekly",
+        commonEndDate: "",
+        status: "today",
+        period: moment('18:30', "hh:mm").fromNow()
+
+      };
+      break;
+ case 5:
+      event = {
+        key: 'Devi Puja'+ moment().format('YYYY-MM-DD'),
+        title: 'Devi Puja',
+        description: 'We offer special puja to Maa Durga, Maa Saraswatti, and Mata lakshmi on this day.',
+        endTime: '20:00',
+        startTime: '18:30',
+        expandable: new Boolean('false'),
+        thumbnail: {uri: "https://static.wixstatic.com/media/329225_9c15e18666e24c479dc99c5c708a4e06~mv2.jpg"},
+        RawStartDate: moment().unix(),
+        startDate: moment().format('YYYY-MM-DD'),
+        commonStartDate: moment().format('MMMM Do, YYYY'),
+        RawEndDate: "",
+        endDate: "",
+        type: "weekly",
+        commonEndDate: "",
+        status: "today",
+        period: moment('18:30', "hh:mm").fromNow()
+
+      };
+      break;
+    
+  }
+
+
+  if(event != {}){
+    if(WeeklyList.filter(e => e.key === event.key) == 0) WeeklyList.push(event);
+  }
+  if(WeeklyList.filter(e => e.key === 'Aarti'+ moment().format('YYYY-MM-DD')).length == 0){
+    WeeklyList.push({
+      key: 'Aarti'+ moment().format('YYYY-MM-DD'),
       title: 'Aarti',
-      description: 'You are invited to join us as we concluded each evening with Aarti at 8:00 pm.',
-      endTime: '8:20pm',
-      startTime: '8:00pm',
+      description: 'We conclude the day with Aarti at 8:00pm.',
+      endTime: '',
+      startTime: '20:00',
       expandable: new Boolean('false'),
       thumbnail: {uri: "https://static.wixstatic.com/media/28e3bd_b98b6dbd6893467a8930e473b0a7756a~mv2.png"},
       RawStartDate: moment().format(),
@@ -112,13 +217,12 @@ export async function getEvent(){
       endDate: "",
       type: "daily",
       commonEndDate: "",
-      status: "today"
+      status: "today",
+      period: moment('20:00', "hh:mm").fromNow()
+
     });
+  }
 
-    key++;
-
-    console.log(EventList);
-    return EventList;
 }
 
 export async function getTrivia(){
@@ -139,9 +243,30 @@ export async function getQuotes(){
     .collection('Quotes')
     .get()
 
+    QuoteList.Morning = [];
+    QuoteList.Afternoon = [];
+    QuoteList.Night = [];
+
     snapshot.forEach((doc) => {
-        QuoteList.push(doc.data());
+      if(doc.get('quote').length >= 20)
+        var tod = doc.get('timeOfDay')
+        switch(tod){
+          case 'Morning':
+            QuoteList.Morning.push(doc.data());
+            break;
+          case 'Afternoon':
+            QuoteList.Afternoon.push(doc.data());
+            break;
+          case 'Night':
+            QuoteList.Night.push(doc.data());
+            break;
+          default:
+            QuoteList.Afternoon.push(doc.data());
+            break;
+        }
     });
+
+    console.log(QuoteList)
 
 }
 
@@ -194,6 +319,68 @@ function getMonthName (number){
     return monthName;
   }
 
+export async function loadMoreEvents(){
+  var snapshot = await firebase.firestore()
+  .collection('AEvents')
+  .where('startDate', '>=', new Date(moment()))
+  .orderBy('startDate')
+  .startAfter(lastDate)
+  .limit(3)
+  .get()
 
+  snapshot.forEach((doc) => {
+    var event = {};
+    
+   
+    event.title = doc.get('title');
+    event.description = doc.get('description');
+    if(doc.get('endTime') == "") event.endTime = '';
+    else event.endTime = moment(doc.get('endTime').seconds * 1000).format('H:mm');  
+    if(doc.get('startTime') == "") event.startTime = '';
+    else event.startTime = moment(doc.get('startTime').seconds * 1000).format('H:mm');  
+    event.expandable = new Boolean (doc.get('expandable'));  
+    event.thumbnail = {uri: doc.get('thumbnail')};  
+    event.media = doc.get('media');
+
+    event.baseStartDate=doc.get('startDate');
+
+    event.RawStartDate = doc.get('startDate').seconds * 1000;
+    event.startDate = moment(event.RawStartDate).format('YYYY-MM-DD');
+    event.commonStartDate = moment(event.RawStartDate).format('MMMM Do, YYYY');
+
+    event.baseEndDate=doc.get('endDate');
+
+    event.RawEndDate = event.baseEndDate.seconds * 1000;
+    if(event.baseEndDate != ''){
+      event.endDate = moment(event.RawEndDate).format('YYYY-MM-DD');
+      event.commonEndDate = moment(event.RawEndDate).format('MMMM Do, YYYY');
+      event.period = moment(event.RawStartDate).format('MMMM Do') + " - " + event.commonEndDate;
+    }
+    else event.period = event.commonStartDate;
+
+    event.key = (event.title+event.startDate);
+    if(event.startDate > moment().format()) event.type = doc.get('type');  
+    else event.type = "Past Event";
+
+
+    if(event.startDate > moment().format()){
+      event.status = 'future'
+    }
+    else if(event.startDate < moment().format()){
+      event.status = 'past'
+    }
+    else event.status = 'today'
+
+
+    if(!event.baseStartDate == "" && EventList.filter(e => e.key === event.key).length == 0){
+      EventList.push(event);
+      console.log(event);
+      key++;
+      lastDate=event.baseStartDate;
+
+    }
+});
+
+}
   
-  export{EventList, TriviaList, QuoteList};
+  export{EventList, TriviaList, QuoteList, WeeklyList};

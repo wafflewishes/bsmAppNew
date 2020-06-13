@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, View, ScrollView, FlatList, Text, SafeAreaView } from "react-native";
-import {EventList} from "./firebaseAuth";
+import {EventList, loadMoreEvents} from "./firebaseAuth";
 import moment from 'moment';
 import Colors from '../constants/Colors';
 import HEvent from "./HEvent";
@@ -8,20 +8,15 @@ import { render } from "react-dom";
 
 const TODAY = moment().format();
 var dates = [];
-
+var counter=0;
 
 
 export default class SideSwiper extends React.Component {
   constructor(props)
   {
     super(props);
-    this.state = { loaded: false };
-    EventList.forEach(element => 
-      {if(Date.parse(element.startDate) > Date.parse(TODAY) && element.status != 'today'){
-      dates.push(element)}},
-      );
-      console.log("loading state");
-      this.state = { loaded: true, events: dates }
+    this.state = { loaded: false, dates:EventList};
+
       
   }
 
@@ -38,10 +33,11 @@ export default class SideSwiper extends React.Component {
                     >
                     <View style={styles.uEventList}>
                         <FlatList
-                            data = {dates}
+                            data = {this.state.dates}
+                            onEndReached={()=>{loadMoreEvents()}}
+                            onEndReachedThreshold={0.1}
                             keyExtractor = {(item, index) => item.key}
                             showsHorizontalScrollIndicator={false}
-                            extraData = {this.state.dates}
                             horizontal = {true}
                             renderItem={({ item }) => (
                                 <HEvent
@@ -86,7 +82,6 @@ const styles = StyleSheet.create({
         borderColor: "rgba(124,185,231,1)",
         borderBottomColor: Colors.lightBlue,
         borderWidth: 0,
-        borderTopWidth: 6,
         borderBottomWidth: 6
       },
       upcomingSideSwipe_contentContainerStyle: {
@@ -107,7 +102,7 @@ const styles = StyleSheet.create({
       todayText: {
         color: Colors.titleColour,
         alignSelf: "stretch",
-        fontSize: 20,
+        fontSize: 21,
         margin: 10,
         fontFamily: "titleFont",
         textAlign: "center"

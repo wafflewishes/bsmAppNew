@@ -2,7 +2,8 @@ import React, { Component, useState } from "react";
 import { StyleSheet, View, Text, FlatList } from "react-native";
 import Regular from "./Regular";
 import moment from 'moment';
-import {EventList} from './firebaseAuth';
+import {WeeklyList} from './firebaseAuth';
+import Colors from "../constants/Colors";
 
 const TODAY = moment().format();
 
@@ -21,8 +22,8 @@ var count;
   }
 
   loadToday(){
-    if(!this.state.loaded){
-      EventList.forEach(element => 
+   if(!this.state.loaded){
+      WeeklyList.forEach(element => 
         {if(element.status == 'today'){
         eventData.push(element)}},
         );
@@ -33,6 +34,7 @@ var count;
   }
 
   render(){
+    if(eventData.length > 0)
       return (
           <View style={styles.todayContainer}>
             <View style={styles.todayWords}>
@@ -43,6 +45,7 @@ var count;
             <FlatList
             data = {eventData}
             showsVerticalScrollIndicator={false}
+            contentContainerStyle={{alignItems:'center', justifyContent:'center'}}
             renderItem={({ item }) => (
               <Regular
                 event = {item}
@@ -53,6 +56,18 @@ var count;
             />
           </View>
       ) ;
+    else return (
+      <View style={styles.todayContainer}>
+        <View style={[styles.todayWords, {flex: 1}]}>
+          <Text style={styles.todayText}>Today's Events</Text>
+          <Text style={styles.todayDate}>{day}</Text>
+          <View style={styles.todayMiddleBar}></View>
+        </View>
+        <View style={{flex: 2, justifyContent:"center", alignContent:'center', paddingHorizontal: 50}}>
+          <Text style = {styles.noEvents}>There are no Events scheduled for Today!</Text>
+        </View>
+      </View>
+  ) ;
     }  
 }
 
@@ -61,7 +76,9 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 358,
     justifyContent: "center",
-    backgroundColor: "rgba(124,185,231,1)"
+    backgroundColor: "rgba(124,185,231,1)",
+    borderBottomWidth:6,
+    borderBottomColor: 'rgba(124,185,231,1)'
   },
   listStyle:{
     flex:1,
@@ -77,14 +94,14 @@ const styles = StyleSheet.create({
   todayText: {
     color: "rgba(255,255,255,1)",
     alignSelf: "stretch",
-    fontSize: 20,
+    fontSize: 21,
     fontFamily: "titleFont",
     textAlign: "center"
   },
   todayDate: {
     color: "rgba(255,255,255,1)",
     alignSelf: "center",
-    fontSize: 30,
+    fontSize: 35,
     fontFamily: "titleFont",
     textAlign: "center"
   },
@@ -96,8 +113,8 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,1)"
   },
   today2: {
-    width: 345,
-    height: 103,
+    width: 350,
+    height: 100,
     shadowOffset: {
       height: 5,
       width: 5
@@ -105,7 +122,6 @@ const styles = StyleSheet.create({
     shadowColor: "rgba(0,0,0,1)",
     shadowOpacity: 0.16,
     marginTop: 16,
-    marginLeft: 15,
     
   },
   today1: {
@@ -119,6 +135,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.16,
     marginTop: 14,
     marginLeft: 15
+  },
+  noEvents:{
+    fontFamily:'textFont-bold',
+    fontSize: 21,
+    color: Colors.lightBlue,
+    textAlign:'center',
   }
 });
 

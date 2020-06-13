@@ -16,17 +16,16 @@ Home Screen:<br>
 <br><img src = "assets/Visuals/June 13/home-quote.PNG" width = "350"> 
 
 <br>Home Screen-week page:
-<br><img src = "assets/Visuals/June 13/week-top.PNG" width = "350"> 
-<br><img src = "assets/Visuals/June 13/week-bottom.PNG" width = "350"> 
+<br><img src = "assets/Visuals/June 13/week-top.PNG" width = "350"> <img src = "assets/Visuals/June 13/week-bottom.PNG" width = "350"> 
 
 <br>Trivia Sections:
 <br><img src = "assets/Visuals/TriviaInFeed.PNG" width = "280"><img src = "assets/Visuals/TriviaPage.PNG" width = "280"> <img src = "assets/Visuals/TriviaChoice.PNG" width = "280">
 
 <br>Event Page:
-<br><img src = "assets/Visuals/June 13/event-noTime.PNG" width = "220"> 
-<br><img src = "assets/Visuals/June 13/event-period.PNG" width = "220"> 
-<br><img src = "assets/Visuals/June 13/event-startTime.PNG" width = "220"> 
-<br><img src = "assets/Visuals/June 13/event-link.PNG" width = "220"> 
+<br><img src = "assets/Visuals/June 13/event-noTime.PNG" width = "250"> 
+<img src = "assets/Visuals/June 13/event-period.PNG" width = "250"> 
+<img src = "assets/Visuals/June 13/event-startTime.PNG" width = "250"> 
+<img src = "assets/Visuals/June 13/event-link.PNG" width = "250"> 
 
 Event Page Scrolling (outdated, see full video update):
 <br>https://youtu.be/jcV7yBG85NM

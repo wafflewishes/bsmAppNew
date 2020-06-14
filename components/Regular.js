@@ -13,6 +13,8 @@ function Regular(props) {
         navigation.navigate("EventPage", props)
       }
       style={{flex:1}}
+      tou
+      activeOpacity={0.6}
 
       >
 
@@ -30,9 +32,7 @@ function Regular(props) {
           <View style={styles.titleBox}>
             <Text style={styles.title}>{props.event.title}</Text>
           </View>
-          <View style={[styles.titleBox, {flex: 3}]}>
-            <Text style={styles.time}>{moment(props.event.startTime, "h:mm").format('h:mm a')} </Text>
-          </View>
+          {timeBox()}
           <View style={[styles.titleBox, {flex: 7}]}>
             <Text style={styles.description} numberOfLines={2}>{props.event.description}</Text>
           </View>
@@ -45,6 +45,17 @@ function Regular(props) {
       </TouchableOpacity>
     </View>
   );
+
+
+  function timeBox(){
+    if(props.event.startTime != ""){
+      return(
+      <View style={[styles.titleBox, {flex: 3}]}>
+        <Text style={styles.time}>{moment(props.event.startTime, "h:mm").format('h:mm a')} </Text>
+      </View>);
+    }
+    else return;
+  }
 }
 
 const styles = StyleSheet.create({
@@ -54,7 +65,7 @@ const styles = StyleSheet.create({
   },
 
   picture: {
-   flex: 6
+   flex: 4
   },
   textBox: {
     flex: 8,
@@ -73,7 +84,7 @@ const styles = StyleSheet.create({
 
   title: {
     color: "rgba(0,95,168,1)",
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: "titleFont-regular",
     justifyContent:'center',
 

@@ -12,7 +12,11 @@ function HEvent(props) {
     <View style={[styles.container, props.style]}>
       <TouchableOpacity onPress = {() => {
         navigation.navigate("EventPage", props)
-      }}>
+        
+      }}
+      activeOpacity={0.6}
+
+      >
       <View style={styles.upcomingBox}>
         <Image
           source={props.event.thumbnail}

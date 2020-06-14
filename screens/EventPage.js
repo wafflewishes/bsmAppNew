@@ -17,6 +17,8 @@ export default class EventPage extends React.Component {
         super(props);
         this.loadNavigation=this.loadNavigation.bind(this);
         this.isValidURL=this.isValidURL.bind(this);
+        this.loadLinkButton = this.loadLinkButton.bind(this);
+        this.loadTimes = this.loadTimes.bind(this);
     }
     state = {
        event: this.props.route.params.event,
@@ -46,92 +48,33 @@ export default class EventPage extends React.Component {
             }
         }
 
-    render() {
+    loadLinkButton = () => {
+        if(this.isValidURL(this.state.event.media))return(
+            <TouchableOpacity  onPress={() => this.loadNavigation(this.state.event.media)} activeOpacity={0.6}>
+                <View style={{height:70, backgroundColor: color.lightGold, marginTop: 30, justifyContent:'center', alignContent:'center'}}>
+                    <Text style = {{fontSize: 18, textAlign:'center',  fontFamily : "titleFont", color:'white'}}>Click here to see moments from previous years!</Text>
+                </View>  
+            </TouchableOpacity>);
+        else return;
+    }
+
+    loadTimes = () =>{
         var line = '';
-        
-        if(this.isValidURL(this.state.event.media)){
-            return(
-                <ParallaxScrollView
-                backgroundColor={color.lightBlue}
-                contentBackgroundColor="white"
-                parallaxHeaderHeight={250}
-                
-                renderBackground = {() => (<Image
-                    source={this.state.event.thumbnail}
-                    resizeMode= 'cover'
-                    style={styles.picture}
-                  ></Image>)}
-
-                  
-                  >
-                 <View style = {styles.container}>
-
-
-                     <View style = {styles.titleBox}>
-                         <View style={{justifyContent: 'center'}}>
-                            <Text style = {styles.title}>{this.state.event.title}</Text>
-                         </View>
-                        <Text style = {styles.date}>{this.state.event.period}</Text>
-    
-                     </View>
-                    <View style = {styles.descriptionBox}>
-                     <Text style = {styles.description}>{this.state.event.description}</Text>
-    
-                    </View>
-                    <TouchableOpacity  onPress={() => this.loadNavigation(this.state.event.media)}>
-                        <View style={{height:70, backgroundColor: color.lightGold, marginTop: 30, justifyContent:'center', alignContent:'center'}}>
-                            <Text style = {{fontSize: 18, textAlign:'center',  fontFamily : "titleFont", color:'white'}}>Click here to see moments from previous years!</Text>
-                        </View>  
-                    </TouchableOpacity>
-                    
-
-                </View>
-   
-              </ParallaxScrollView> 
-    
-            );
-
-        }
         if(this.state.event.startTime != ''){
             if(this.state.event.endTime != ''){
                 line = moment(this.state.event.startTime,'H:mm').format('h:mm a') + ' - ' + moment(this.state.event.endTime,'H:mm').format('h:mm a');
             }
             else line = moment(this.state.event.startTime,'H:mm').format('h:mm a');
+
             return(
-                <ParallaxScrollView
-                backgroundColor={color.lightBlue}
-                contentBackgroundColor="white"
-                parallaxHeaderHeight={250}
-                
-                renderBackground = {() => (
-                        <Image
-                            source={this.state.event.thumbnail}
-                            resizeMode="cover"
-                            style={styles.picture}
-                        />
-                  )}>
-                    <View style = {styles.container}>
-                     <View style = {styles.titleBox}>
-                         <View style={{justifyContent: 'center'}}>
-                            <Text style = {styles.title}>{this.state.event.title}</Text>
-                         </View>
-                         <View>
-                            <Text style = {styles.date}>{this.state.event.period}</Text>
-                         </View>
-                    </View>
-                    <View style={{backgroundColor: '#c0891b'}}>
-                        <Text style = {styles.times}>{line}</Text>
-                    </View>
-                    <View style = {styles.descriptionBox}>
-                     <Text style = {styles.description}>{this.state.event.description}</Text>
+                <View style={{backgroundColor: '#c0891b'}}>
+                    <Text style = {styles.times}>{line}</Text>
+                </View>);
+        } else return;
+    }
     
-                    </View>
-                </View>
-              </ParallaxScrollView> 
-    
-            );
-        }
-        else{
+
+    render() {
             return(
                 <ParallaxScrollView
                 backgroundColor={color.lightBlue}
@@ -151,17 +94,16 @@ export default class EventPage extends React.Component {
                         <Text style = {styles.date}>{this.state.event.period}</Text>
     
                      </View>
+                     {this.loadTimes()}
                     <View style = {styles.descriptionBox}>
                      <Text style = {styles.description}>{this.state.event.description}</Text>
-    
                     </View>
+                    {this.loadLinkButton()}
                 </View>
               </ParallaxScrollView> 
     
             );
         }
-        
-    }
 }
 
 

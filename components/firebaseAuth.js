@@ -35,7 +35,7 @@ export async function getEvent(){
 
     var snapshot = await firebase.firestore()
     .collection('AEvents')
-    .where('startDate', '>=', new Date(moment()))
+    .where('startDate', '>=', new Date(moment().subtract(1, 'days')))
     .orderBy('startDate')
     .limit(3)
     .get()
@@ -78,17 +78,20 @@ export async function getEvent(){
         else event.type = "Past Event";
 
 
-        if(event.startDate > moment().format()){
+        if(event.startDate > moment().format('YYYY-MM-DD')){
           event.status = 'future'
         }
-        else if(event.startDate < moment().format()){
+        else if(event.startDate <  moment().format('YYYY-MM-DD')){
           event.status = 'past'
         }
         else event.status = 'today'
 
 
         if(!event.RawStartDate == "" && !(event in EventList)){
-          if (event.status == 'today') WeeklyList.push(event);
+          if (event.status == 'today'){
+            WeeklyList.push(event);
+          } 
+          console.log(event.title + " - " + event.startDate + ' - ' + event.status);
           EventList.push(event);
           key++;
           lastDate=event.baseStartDate;

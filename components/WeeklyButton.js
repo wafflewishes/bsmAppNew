@@ -9,6 +9,8 @@ function WeeklyButton(props) {
     <View>
         <TouchableOpacity style={styles.container}
             onPress = {() => navigation.navigate('Week',{})}
+            activeOpacity={0.6}
+
         >
             <Text style={styles.text}>Your Weekly Schedule</Text>
             <Text style={styles.arrow}>></Text>

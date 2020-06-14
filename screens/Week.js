@@ -31,16 +31,16 @@ export default class Week extends React.Component {
 
                 <View>
                     <Text style={[styles.title, styles.day]}>Monday</Text>
-                    <Event event = {{title: "Shiva Puja", description: '', commonStartDate:'6:30pm - 8:00pm', thumbnail: {uri:'https://static.wixstatic.com/media/329225_3f07664debae4bdfa32c6ae72c374aa7~mv2.jpg'}, status:'week'}}/>
+                    <Event event = {{title: "Shiva Puja", description: '', commonStartDate:'6:30pm - 8:00pm', thumbnail: require('../assets/images/lingam.jpg'), status:'week'}}/>
                     
                     <Text style={[styles.title, styles.day]}>Tuesday</Text>
-                    <Event event = {{title: "Hanuman Puja", description: '', commonStartDate:'6:30pm - 8:00pm', thumbnail:{uri:'https://static.wixstatic.com/media/28e3bd_19d9728974b84f3eb2e4ec48c426a750~mv2.jpg'}, status:'week'}}/>
+                    <Event event = {{title: "Hanuman Puja", description: '', commonStartDate:'6:30pm - 8:00pm', thumbnail:require('../assets/images/hanuman.jpg'), status:'week'}}/>
                     
                     <Text style={[styles.title, styles.day]}>Friday</Text>
-                    <Event event = {{title: "Devi Puja", description: '', commonStartDate:'6:30pm - 8:00pm', thumbnail: {uri:'https://static.wixstatic.com/media/329225_9c15e18666e24c479dc99c5c708a4e06~mv2.jpg'}, status:'week'}}/>
+                    <Event event = {{title: "Devi Puja", description: '', commonStartDate:'6:30pm - 8:00pm', thumbnail: require('../assets/images/durga.jpg'), status:'week'}}/>
                     
                     <Text style={[styles.title, styles.day]}>Sunday</Text>
-                    <Event event = {{title: "Sunday Morning Service", description: '', commonStartDate:'9:30am - 12:00pm', thumbnail: {uri:'https://static.wixstatic.com/media/329225_17684e1364234aa99cdacbd8e29e7c8f~mv2.jpg'}, status:'week'}}/>
+                    <Event event = {{title: "Sunday Morning Service", description: '', commonStartDate:'9:30am - 12:00pm', thumbnail: require('../assets/images/shivaparvati.jpg'), status:'week'}}/>
                     
 
                 </View>

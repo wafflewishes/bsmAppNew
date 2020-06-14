@@ -24,7 +24,7 @@ function Regular(props) {
           <Image
             source={props.event.thumbnail}
             resizeMode="cover"
-            style={{flex:1}}
+            style={{height:'100%', width:'100%'}}
           ></Image>
         </View>
 

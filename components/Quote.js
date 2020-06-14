@@ -35,8 +35,7 @@ function Quote(props) {
             <Text style = {styles.text}>{props.set.quote} </Text>
           </View>
           <View style = {styles.authorArea}>
-          <Text style = {styles.author}>- {props.set.author}</Text>
-
+            <Text style = {styles.author}>- {props.set.author}</Text>
           </View>
 
           
@@ -64,9 +63,11 @@ const styles = StyleSheet.create({
 
   box:{
     flex: 1,
-    margin: 15,
+    margin: 11,
     paddingHorizontal: 40,
     paddingVertical: 40,
+    alignContent:'center',
+    justifyContent:'center'
     
   },
 

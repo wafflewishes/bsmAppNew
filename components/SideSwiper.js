@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
       upcomingSideSwipe: {
         width: "100%",
         height: 470,
-        backgroundColor: "#ffffff",
+        backgroundColor: "#f7f7f7",
         borderColor: "rgba(124,185,231,1)",
         borderBottomColor: Colors.lightBlue,
         borderWidth: 0,
@@ -103,8 +103,8 @@ const styles = StyleSheet.create({
         color: Colors.titleColour,
         alignSelf: "stretch",
         fontSize: 21,
-        margin: 10,
+        margin: 20,
         fontFamily: "titleFont",
-        textAlign: "center"
+        textAlign: "center",
       }
   });

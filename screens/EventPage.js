@@ -39,10 +39,8 @@ export default class EventPage extends React.Component {
         '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
         '(\\#[-a-z\\d_]*)?$','i'); // fragment locater
             if (!pattern.test(str)) {
-                console.log('false')
                 return false;
             } else {
-                console.log('true')
 
                 return true;
             }
@@ -60,11 +58,10 @@ export default class EventPage extends React.Component {
                 
                 renderBackground = {() => (<Image
                     source={this.state.event.thumbnail}
-                    resizeMode= 'center'
+                    resizeMode= 'cover'
                     style={styles.picture}
                   ></Image>)}
-                  
-                  rengerFoot
+
                   
                   >
                  <View style = {styles.container}>
@@ -171,7 +168,8 @@ export default class EventPage extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        height: "100%"
+        height: "100%",
+        color:'white'
     },
     picture: {
       width: "100%",

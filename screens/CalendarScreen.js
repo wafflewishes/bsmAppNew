@@ -24,7 +24,6 @@ const CalendarStack = createStackNavigator();
 
 
 const TODAY = moment().format();
-console.log(TODAY);
 var dates = [];
 var weekly = {};
 let mark = {};
@@ -35,13 +34,15 @@ class LinksScreen extends React.Component {
 
   constructor(){
     super();
-    this.state = {tems: {}}
+    this.state = {items: {}}
     this.loadCal=this.loadCal.bind(this);
   }
 
   componentDidMount(){
     this.loadCal();
   }
+
+
 
   loadCal = () => {
     dates.forEach(day => {
@@ -55,17 +56,13 @@ class LinksScreen extends React.Component {
     
     obj = dates.reduce((c, v) => Object.assign(c, {[v]: {selected: true,marked: true,disabled: false, selectedColor:'#e0a227'}}), {});
     this.setState({items:obj});
-    this.forceUpdate();
 
   }
 
  loadDate = day =>{
   const navigation = this.props.navigation;  
-
+ 
     var output = filterItems(EventList, day.dateString);
-    console.log(output[0])
-
-    
 
     if(output.length > 1){
       navigation.navigate("EventPage", {event: output[0]}); 
@@ -83,10 +80,11 @@ render(){
           <View style = {{flex:10}}>
           <CalendarList
               markedDates = {this.state.items}
+              onVisibleMonthsChange={(months) => {if(months.length == 1) {loadMoreEvents(); this.loadCal()}}}
               onDayPress = {(day) =>  {  this.loadDate(day)  }}
               calendarWidth={Layout.window.width}
-              onMonthChange={(month)=> loadMoreEvents().then(this.loadCal())}
               pastScrollRange= {0}
+              futureScrollRange={12}
               current={TODAY}
               theme={customOptions}
               />

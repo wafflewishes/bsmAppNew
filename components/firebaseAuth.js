@@ -101,7 +101,6 @@ export async function getEvent(){
 
     key++;
 
-    console.log(EventList);
     loadWeekly();
 }
 
@@ -266,7 +265,6 @@ export async function getQuotes(){
         }
     });
 
-    console.log(QuoteList)
 
 }
 
@@ -374,7 +372,6 @@ export async function loadMoreEvents(){
 
     if(!event.baseStartDate == "" && EventList.filter(e => e.key === event.key).length == 0){
       EventList.push(event);
-      console.log(event);
       key++;
       lastDate=event.baseStartDate;
 

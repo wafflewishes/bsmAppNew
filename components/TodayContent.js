@@ -18,6 +18,9 @@ var count;
     super(props);
     this.state = {loaded: false};
     this.loadToday = this.loadToday.bind(this);
+  }
+
+  componentDidMount(){
     this.loadToday();
   }
 

@@ -3,6 +3,8 @@
 <br> visual video (updated, June 13, 2020)
 <br>https://youtu.be/TY2TGrS8C1M
 
+<br> app simulation: https://appetize.io/app/j6kmzaygt7j24p1219dr0pan14?device=nexus5&scale=100&orientation=portrait&osVersion=8.1
+
 <br>jun 13: added weekly button and page, event link handling, multiple QoL changes (fonts, colours, box sizes, firebase reading, item ordering, etc)
 <br>jun 9:  added quote box, Calendar legend, modified header font, colours. increased size of Event box & fonts, cleaned up firebase backend.
 <br>jun 2:  added splash screen, dynamic feed, patuaOne font, calendar designs 

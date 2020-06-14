@@ -37,7 +37,7 @@ function Event(props) {
           </View>
           <View style={{ flex: 11, alignItems: "center"}}>
             <Image 
-            style={{flex:1, width: '100%'}}
+            style={{flex:1, width: '100%', backgroundColor:'#e6e6e6'}}
             source = {props.event.thumbnail}
             resizeMode="cover"
             />

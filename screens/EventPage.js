@@ -52,7 +52,7 @@ export default class EventPage extends React.Component {
         if(this.isValidURL(this.state.event.media))return(
             <TouchableOpacity  onPress={() => this.loadNavigation(this.state.event.media)} activeOpacity={0.6}>
                 <View style={{height:70, backgroundColor: color.lightGold, marginTop: 30, justifyContent:'center', alignContent:'center'}}>
-                    <Text style = {{fontSize: 18, textAlign:'center',  fontFamily : "titleFont", color:'white'}}>Click here to see moments from previous years!</Text>
+                    <Text style = {{fontSize: 18, textAlign:'center',  fontFamily : "titleFont", color:'white'}}>Click here to see more >></Text>
                 </View>  
             </TouchableOpacity>);
         else return;
